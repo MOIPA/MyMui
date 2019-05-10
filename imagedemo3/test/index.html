@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+     
+        <script src="js/jquery1.42.min.js"></script>
+		<script type="text/javascript" src="js/mui.min.js"></script>     
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+    </script>
+    	<style>
+		body{font-family: "Helvetica Neue",Helvetica,sans-serif;-webkit-tap-highlight-color:rgba(0,0,0,0);background: #E6E6E6;margin: 0px;}
+		
+		</style>
+<script type="text/javascript"> 
+var files=[];
+var i=1,gentry=null,w=null;
+var hl=null,le=null,de=null; 
+
+var f1=null;
+var f2=null;
+ 
+
+// 监听DOMContentLoaded事件
+document.addEventListener("DOMContentLoaded",function(){
+	// 获取DOM元素对象
+	hl=document.getElementById("history"); 
+	le=document.getElementById("empty");
+
+
+},false );
+
+
+// 上传文件
+function upload(){ 
+
+	if(files.length<=0){  
+		plus.nativeUI.alert("没有添加上传文件！"); 
+		return;
+	}
+
+	if(files.length<2){
+	 
+		f1=files[0].pic; 
+		f2=""; 
+	}else{
+		f1=files[0].pic;
+		f2=files[1].pic; 
+	}
+ 
+     var wt=plus.nativeUI.showWaiting();
+	 var url = '你的后台地址';
+			//预期服务器范围的数据类型
+			var dataType ='json';
+			//发送数据  
+			var data = { 
+				files1:f1,
+				files2:f2   			      
+			};    
+			$.post(url, data, success, dataType);			  			   
+}
+		//成功响应的回调函数
+		var success = function(response) { 	 
+			plus.nativeUI.closeWaiting();
+			if(response != null){
+				alert("上传成功"); 
+			}
+	 	 	
+	 }  
+
+
+// 拍照 
+function getImage() {
+  
+	var cmr = plus.camera.getCamera(); 
+	cmr.captureImage( function ( p ) { 	     
+	plus.io.resolveLocalFileSystemURL( p, function ( entry ) {    
+		if(files.length<2){
+	    	 createItem( entry ); 
+			 appendFile(p);
+	    	}
+	});  
+	},function( error ) {
+			alert( "Capture image failed: " + error.message );
+		},{filename:"file:///storage/sdcard0/DCIM/Camera/"+"ra/"}    //改变一下拍照的路径,名字
+		
+	);
+	
+	 
+}  
+ 
+// 从相册添加文件 
+function appendByGallery(){
+	plus.gallery.pick(function(path){
+	    plus.io.resolveLocalFileSystemURL( path, function ( entry ) {
+	    	if(files.length<2){
+	    	 createItem( entry ); 
+			 appendFile(path);
+	    	}
+		
+		} ); 
+        
+   
+    });
+}
+
+// 添加文件
+var index=1;
+function appendFile(path){
+
+  var img = new Image();
+        img.src = path;
+        img.onload = function () {
+            var that = this;
+            //生成比例 
+            var w = that.width,
+                h = that.height,
+                scale = w / h; 
+                w = 480 || w;  //480  你想压缩到多大
+                h = w / scale;
+      
+            //生成canvas
+            var canvas = document.createElement('canvas');
+                 
+            var ctx = canvas.getContext('2d');
+                 
+            $(canvas).attr({width : w, height : h});
+                  
+            ctx.drawImage(that, 0, 0, w, h);
+
+            var base64 = canvas.toDataURL('image/jpeg', 1 || 0.8 );   //1z 表示图片质量，越低越模糊。
+//              alert(base64);      
+			 
+			files.push({name:"file"+index,pic:base64});   // 把base64数据丢进数组，上传要用。
+
+		   	index++;
+		   	
+		   	var pic = document.getElementById("x");    
+			pic.src = base64;                    //这里丢到img 的 src 里面就能看到效果了
+    }
+ 
+}
+ 
+
+ // 显示文件
+function displayFile( li ) {
+  
+	var name = li.entry.name;
+	var suffix = name.substr(name.lastIndexOf('.'));
+	var url = "";
+    
+		url = "examples/camera_image.html";
+//
+	w=plus.webview.create(url,url,{scrollIndicator:'none',scalable:true,bounce:"all"});
+	w.addEventListener( "loaded", function(){
+ 
+	w.evalJS( "loadMedia('"+li.entry.toLocalURL()+"')" );
+//		//w.evalJS( "loadMedia(\""+"http://localhost:13131/_doc/camera/"+name+"\")" );
+	}, false );
+	w.addEventListener( "close", function() {
+		w = null;
+	}, false );
+	w.show( "slide-in-right", 300 );
+}
+ 
+ 
+ // 添加播放项
+function createItem( entry ) {
+	var li = document.createElement("li");
+	li.className = "ditem";
+	li.innerHTML = '<span class="iplay"><font class="aname"></font><br/><font class="ainf"></font></span>';
+	li.setAttribute( "onclick", "displayFile(this);" );
+	hl.insertBefore( li, le.nextSibling );
+	li.querySelector(".aname").innerText = entry.name;
+	li.entry = entry;
+ 
+	// 设置空项不可见
+	le.style.display = "none";
+}
+
+
+// 清除历史记录
+function cleanHistory() {
+	hl.innerHTML = '<li id="empty" class="ditem-empty">暂无照片</li>';
+	le = document.getElementById( "empty" );
+ 	files.splice(0,files.length);
+
+}
+	</script>   
+</head>
+<body>
+			<div id="dcontent" class="long-dcontent">
+
+			<table class="long-table">
+				<tbody>
+					<span style="margin: 0 0 10px 0px;color: #6c6c6c;">照片</span>
+					<tr>
+  						<td style="background: #fff;text-align: center;color:#9B9B9B;width:40%"><div class="button button-select pz" onclick="getImage()"><img src="../images/pz.png" style="margin: 10px 20px; "  />拍摄照片</div></td>
+ 					<td style="width:10%"></td>
+ 					<td style="background: #fff;text-align: center;color:#9B9B9B;width:40%"><div class="button button-select pz" onclick="appendByGallery()"><img src="../images/pz.png" style="margin: 10px 20px; "  />选择照片</div></td>
+
+					
+ 
+					</tr> 
+							                
+				</tbody>
+			</table>   
+			<p class="heading" style="color: #6c6c6c;">照片预览：</p>							
+			<div id="history" class="dlist" style="text-align:left;">
+				<li id="empty" class="ditem-empty" style="list-style-type:none; ">暂无照片</li>
+			</div>
+						<br/>
+			<div class="b-waring" onclick="cleanHistory();" style="border: 1px solid #999999;margin: 10px;padding:10px 0 ;text-align: center;">清空照片</div>
+			<br/>
+
+			<div class="button long-btn" onclick="upload()"style="border: 1px solid #999999;margin: 10px;padding:10px 0 ;text-align: center;">上------------传</div>
+			<br/>
+
+		</div>
+ <img src="" id="x" /> 
+</body>
+</html>

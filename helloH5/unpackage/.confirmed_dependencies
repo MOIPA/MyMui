@@ -1,0 +1,12 @@
+{
+	"index.html": {
+		"refer": [
+			"plus/uploader.html"
+		]
+	},
+	"plus/uploader.html": {
+		"refer": [
+			"plus/uploader_ret.html"
+		]
+	}
+}

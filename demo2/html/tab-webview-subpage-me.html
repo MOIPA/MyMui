@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>new webview</title>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body style="background-color: #FFFFFF;">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的buy</h1>
+			<p class="mui-pull-right" style="margin-right: 10px;margin-top: 13px;">
+				<a id="login">登陆</a>
+			</p>
+		</header>
+		<div style="position: fixed;height: 200px;width: 100%; z-index: 3;">
+				<div style="background-image: url(../images/user_icon_bg2.png); height: 200px;"></div>
+				<!--<img src="../images/user_icon_bg2.png" width="100%"/>-->
+				<img src="../images/user_r_icon2.png" style="border-radius: 300px;height: 120px;width: 120px;margin-top: -200px; margin-left: 30%;" />
+				<div style="height: 20px;background-color: #FFFFFF;margin-top: -21px;"></div>
+			</div>
+		<div class="mui-content" style="background-color: #FFFFFF;">
+
+			
+			<p style="margin-top: 180px; z-index: 1;">
+				<ul class="mui-table-view" style="padding-top: 20px;">
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right mypost">
+							<img />我的帖子
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right manageaddr">
+							管理收货地址
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right myorder">
+							我的订单
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							我的优惠券
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right myfavourite">
+							我的收藏
+						</a>
+					</li>
+				</ul>
+
+				<ul class="mui-table-view" style="margin-top: 20px;">
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right contact">
+							联系客服
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right feedbackus">
+							意见反馈
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right changeinfo">
+							修改账户信息
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right joinus">
+							加入我们
+						</a>
+					</li>
+
+				</ul>
+			</p>
+			
+		</div>
+
+		<script>
+			mui.init();
+			
+			document.getElementsByClassName("mypost")[0].addEventListener("tap",function(){
+				mui.openWindow({
+					url:"my_buy/my-post.html",
+					id:"my_buy/my-post.html",
+					extras:{
+						name:"1"
+					}
+				});
+			});
+			document.getElementsByClassName("manageaddr")[0].addEventListener("tap",function(){
+				mui.openWindow({
+					url:"my_buy/manage-receive-addr.html",
+					id:"my_buy/manage-receive-addr.html",
+					extras:{
+						name:"1"
+					}
+				});
+			});
+			document.getElementsByClassName("myorder")[0].addEventListener("tap",function(){
+				mui.openWindow({
+					url:"my_buy/my-order.html",
+					id:"my_buy/my-order.html",
+					extras:{
+						name:"1"
+					}
+				});
+			});
+			document.getElementsByClassName("myfavourite")[0].addEventListener("tap",function(){
+				mui.openWindow({
+					url:"my_buy/my-favourite.html",
+					id:"my_buy/my-favourite.html",
+					extras:{
+						name:"1"
+					}
+				});
+			});
+			document.getElementsByClassName("contact")[0].addEventListener("tap",function(){
+				mui.openWindow({
+					url:"my_buy/contact-chat.html",
+					id:"my_buy/contact-chat.html"
+				});
+			});
+			document.getElementsByClassName("joinus")[0].addEventListener("tap",function(){
+				mui.openWindow({
+					url:"my_buy/join-us.html",
+					id:"my_buy/join-us.html"
+				});
+			});
+			document.getElementsByClassName("feedbackus")[0].addEventListener("tap",function(){
+				mui.openWindow({
+					url:"my_buy/feed-back.html",
+					id:"my_buy/feed-back.html"
+				}); 
+			});
+			document.getElementsByClassName("changeinfo")[0].addEventListener("tap",function(){
+				mui.openWindow({
+					url:"my_buy/change-info.html",
+					id:"my_buy/change-info.html"
+				});
+			});
+			document.getElementById("login").addEventListener("tap",function(){
+				mui.openWindow({
+					url:"login/login.html",
+					id:"login/login.html"
+				});
+			});
+			
+		</script>
+	</body>
+
+</html>

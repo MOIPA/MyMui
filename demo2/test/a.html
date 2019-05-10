@@ -1,0 +1,32 @@
+<!DOCTYPE html>  
+<html>  
+    <head>  
+        <meta charset="UTF-8">  
+        <title></title>  
+        <link href="../css/mui.min.css" rel="stylesheet" />  
+        <script src="../js/mui.min.js"></script>  
+    </head>  
+    <body>  
+          
+        <script type="text/javascript" charset="utf-8">  
+            mui.init()  
+            mui.plusReady(function(){  
+                alert('1')  
+//              var self=plus.webview.currentWebview();  
+//              console.log(JSON.stringify(self))     
+                mui("body").on("tap",".a",function(){  
+                     mui.openWindow({  
+                        url:"b.html",  
+                        id:"b",  
+                     })  
+                })  
+            });  
+        </script>  
+          
+          <div class="mui-content">
+        <a href="javascript:void(0)" class="a">跳到b</a>  
+              
+          </div>
+
+    </body>   
+</html>  
