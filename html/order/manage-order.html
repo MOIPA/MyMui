@@ -1,0 +1,390 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+		<style>
+		.mui-bar{
+			/*background: #fe5e55;*/
+			background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+		}
+		.mui-action-back {
+			color:#FFFFFF ;
+		}
+		.mui-title {
+			color:#FFFFFF ;
+		}
+	</style>
+	<body>
+		<script src="../../js/vue.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="mytitle">我发布的订单</h1>
+		</header>
+		<div class="mui-content">
+			<!--<div class="mui-card">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-collapse mui-active">
+						<a class="mui-navigate-right" href="#">订单</a>
+						<div class="mui-collapse-content">
+							<ul class="mui-table-view" id="horderlist">
+								<li class="mui-table-view-cell click-order" v-for="item in items">
+									<a class="mui-navigate-right">
+										<div>
+											<p>
+												<p style="color: #CF2D28;">{{item.orderstatus}}</p>&nbsp;&nbsp;{{item.ordertheme}} &nbsp;&nbsp;{{item.com}}&nbsp;&nbsp;{{item.posttime}}</p>
+										</div>
+									</a>
+									<p id="hidden_orderid" style="display: none;">{{item.orderid}}</p>
+									<p id="hidden_ordercontent" style="display: none;">{{item.ordercontent}}</p>
+									<p id="hidden_ordertheme" style="display: none;">{{item.ordertheme}}</p>
+									<p id="hidden_orderstatus" style="display: none;">{{item.orderstatus}}</p>
+									<p id="hidden_endtime" style="display: none;">{{item.ordertime}}</p>
+									<p id="hidden_sellerid" style="display: none;">{{item.promulgatorid}}</p>
+									<p id="hidden_sellername" style="display: none;">{{item.account}}</p>
+									<p id="hidden_sellericon" style="display: none;">{{item.uiconsrc}}</p>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="mui-table-view-cell mui-collapse mui-active">
+						<a class="mui-navigate-right" href="#">活动</a>
+						<div class="mui-collapse-content">
+							<ul class="mui-table-view" id="activitylist">
+								<li class="mui-table-view-cell click-activity" v-for="item in items">
+									<a class="mui-navigate-right">
+										<div>
+											<p>
+												<p style="color: #CF2D28;">{{item.orderstatus}}</p>&nbsp;&nbsp;{{item.ordertheme}} &nbsp;&nbsp;{{item.com}}&nbsp;&nbsp;{{item.posttime}}</p>
+										</div>
+									</a>
+									<p id="hidden_orderid" style="display: none;">{{item.orderid}}</p>
+									<p id="hidden_ordercontent" style="display: none;">{{item.ordercontent}}</p>
+									<p id="hidden_ordertheme" style="display: none;">{{item.ordertheme}}</p>
+									<p id="hidden_orderstatus" style="display: none;">{{item.orderstatus}}</p>
+									<p id="hidden_endtime" style="display: none;">{{item.ordertime}}</p>
+									<p id="hidden_sellerid" style="display: none;">{{item.promulgatorid}}</p>
+									<p id="hidden_sellername" style="display: none;">{{item.account}}</p>
+									<p id="hidden_sellericon" style="display: none;">{{item.uiconsrc}}</p>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>-->
+			<ul class="mui-table-view" id="horderlist">
+				<li class="mui-table-view-cell click-order" v-for="item in items">
+					<a class="mui-navigate-right">
+						<div>
+							<p>
+								<p style="color: #CF2D28;">{{item.orderstatus}}</p>&nbsp;&nbsp;{{item.ordertheme}} &nbsp;&nbsp;{{item.com}}&nbsp;&nbsp;{{item.posttime}}</p>
+						</div>
+					</a>
+					<p id="hidden_orderid" style="display: none;">{{item.orderid}}</p>
+					<p id="hidden_ordercontent" style="display: none;">{{item.ordercontent}}</p>
+					<p id="hidden_ordertheme" style="display: none;">{{item.ordertheme}}</p>
+					<p id="hidden_orderstatus" style="display: none;">{{item.orderstatus}}</p>
+					<p id="hidden_endtime" style="display: none;">{{item.ordertime}}</p>
+					<p id="hidden_sellerid" style="display: none;">{{item.promulgatorid}}</p>
+					<p id="hidden_sellername" style="display: none;">{{item.account}}</p>
+					<p id="hidden_sellericon" style="display: none;">{{item.uiconsrc}}</p>
+				</li>
+			</ul>
+
+		</div>
+		<script type="text/javascript">
+			var dateUtils = {
+				UNITS: {
+					'年': 31557600000,
+					'月': 2629800000,
+					'天': 86400000,
+					'小时': 3600000,
+					'分钟': 60000,
+					'秒': 1000
+				},
+				humanize: function(milliseconds) {
+					var humanize = '';
+					mui.each(this.UNITS, function(unit, value) {
+						if(milliseconds >= value) {
+							humanize = Math.floor(milliseconds / value) + unit + '前';
+							return false;
+						}
+						return true;
+					});
+					return humanize || '刚刚';
+				},
+				format: function(dateStr) {
+					var date = this.parse(dateStr)
+					var diff = Date.now() - date.getTime();
+					if(diff < this.UNITS['天']) {
+						return this.humanize(diff);
+					}
+
+					var _format = function(number) {
+						return(number < 10 ? ('0' + number) : number);
+					};
+					return date.getFullYear() + '/' + _format(date.getMonth() + 1) + '/' + _format(date.getDay()) + '-' + _format(date.getHours()) + ':' + _format(date.getMinutes());
+				},
+				parse: function(str) { //将"yyyy-mm-dd HH:MM:ss"格式的字符串，转化为一个Date对象
+					var a = str.split(/[^0-9]/);
+					return new Date(a[0], a[1] - 1, a[2], a[3], a[4], a[5]);
+				}
+			};
+
+			function getServerData(command) {
+				//				alert(JSON.parse(localStorage.getItem('user'))[0].com);
+				//judge for title 
+				if(command == 'show_posted_order') {
+					document.getElementById("mytitle").innerText = "我发布的";
+				} else if(command == 'show_follower_order') {
+					document.getElementById("mytitle").innerText = "我跟踪的";
+				} else if(command == 'show_unpassed_order') {
+					document.getElementById("mytitle").innerText = "待审核的";
+				} else if(command == 'show_passed_order') {
+					document.getElementById("mytitle").innerText = "审核通过的";
+				}
+				//get data from my server
+				var user = JSON.parse(localStorage.getItem('user'));
+				var aid = new Number(user[0].aid);
+				//					alert(aid);
+				mui.post('http://39.108.159.175/phpworkplace/mui/order/ordermanage/getOrderByRequest.php', {
+					aid: aid,
+					request: command,
+					com: JSON.parse(localStorage.getItem('user'))[0].com
+				}, function(data) {
+					//																alert(data);return;
+					var arrTmp = [];
+					if(data != null) {
+						for(var i = 0; i < data.length; i++) {
+							arrTmp.push({
+								ordertheme: data[i].ordertheme,
+								orderid: data[i].orderid,
+								ordercontent: data[i].ordercontent,
+								ordertime: data[i].ordertime,
+								promulgatorid: data[i].promulgatorid,
+								account: data[i].account,
+								uiconsrc: data[i].uiconsrc,
+								com: data[i].com,
+								posttime: dateUtils.format(data[i].posttime),
+								orderstatus: data[i].orderstatus
+							});
+						}
+						//bind
+						//					orderlist.items=[];
+						orderlist.items = arrTmp;
+					} else orderlist.items = [];
+
+				}, 'json');
+			}
+			var orderlist = new Vue({
+				el: '#horderlist',
+				data: {
+					items: []
+				}
+			});
+
+			function getActivityData(command) {
+				//judge for title 
+				if(command == 'show_posted_order') {
+					document.getElementById("mytitle").innerText = "我发布的";
+				} else if(command == 'show_follower_order') {
+					document.getElementById("mytitle").innerText = "我跟踪的";
+				} else {
+					command = 'show_posted_order';
+				}
+				//get data from my server
+				var user = JSON.parse(localStorage.getItem('user'));
+				var aid = new Number(user[0].aid);
+				//					alert(aid);
+				mui.post('http://39.108.159.175/phpworkplace/mui/order/ordermanage/getActivity.php', {
+					aid: aid,
+					request: command
+				}, function(data) {
+					//											alert(aid+" "+data.length);return;
+					var arrTmp = [];
+					if(data != null) {
+						for(var i = 0; i < data.length; i++) {
+							arrTmp.push({
+								ordertheme: data[i].ordertheme,
+								orderid: data[i].orderid,
+								ordercontent: data[i].ordercontent,
+								ordertime: data[i].ordertime,
+								promulgatorid: data[i].promulgatorid,
+								account: data[i].account,
+								uiconsrc: data[i].uiconsrc,
+								com: data[i].com,
+								posttime: dateUtils.format(data[i].posttime),
+								orderstatus: data[i].orderstatus
+							});
+						}
+						//bind
+						//					orderlist.items=[];
+						activitylist.items = arrTmp;
+					} else orderlist.items = [];
+
+				}, 'json');
+			}
+
+			var activitylist = new Vue({
+				el: '#activitylist',
+				data: {
+					items: []
+				}
+			});
+
+			function itemListener() {
+//				var detailPage = null;
+				mui(".mui-content").on("tap", '.click-order', function() {
+					var user = JSON.parse(localStorage.getItem('user'));
+					if(user[0].loginstatus == 'offline') {
+						plus.nativeUI.toast("请先登陆");
+						return;
+					}
+
+					var currentNode = this;
+					var list = currentNode.childNodes;
+					//									alert(list.length);
+					currentNode = list[0];
+					currentNode = currentNode.nextSibling.nextSibling;
+					//					alert(list[2].innerHTML);
+					var orderId = currentNode.lastChild.nodeValue;
+					currentNode = currentNode.nextSibling.nextSibling;
+					var orderContent = currentNode.lastChild.nodeValue;
+					currentNode = currentNode.nextSibling.nextSibling;
+					var orderTheme = currentNode.lastChild.nodeValue;
+					currentNode = currentNode.nextSibling.nextSibling;
+					var orderStatus = currentNode.lastChild.nodeValue;
+					currentNode = currentNode.nextSibling.nextSibling;
+					var orderEndtime = currentNode.lastChild.nodeValue;
+					currentNode = currentNode.nextSibling.nextSibling;
+					var orderSellerid = currentNode.lastChild.nodeValue;
+					currentNode = currentNode.nextSibling.nextSibling;
+					var orderSellername = currentNode.lastChild.nodeValue;
+					currentNode = currentNode.nextSibling.nextSibling;
+					var orderSellericon = currentNode.lastChild.nodeValue;
+//					alert(orderId+"  "+orderContent+"/n"+orderTheme+"/n"+orderStatus+"/n"+orderEndtime+"/n"+orderSellerid+"/n"+orderSellername+"/n"+orderSellericon);return;
+
+					//			alert(orderId+";");
+					//获取详细界面 首先传输值 再打开
+//					if(!detailPage) {
+//						detailPage = plus.webview.getWebviewById("html/order/detail-order.html");
+//					}
+					//				alert(detailPage);
+					//传输值
+					//					mui.fire(detailPage, "order-detail", {
+					//						id: orderId,
+					//						content: orderContent,
+					//						theme: orderTheme,
+					//						status: orderStatus,
+					//						endTime: orderEndtime,
+					//						sellerId: orderSellerid,
+					//						sellerName: orderSellername,
+					//						sellerIcon: orderSellericon
+					//					});
+
+					//					mui.openWindow({
+					//						url: "html/order/detail-order.html",
+					//						id: "html/order/detail-order.html"
+					//					});
+					mui.openWindow({
+						url: "detail-order.html",
+						id: "detail-order.html",
+						extras: {
+							orderid: orderId,
+							content: orderContent,
+							theme: orderTheme,
+							status: orderStatus,
+							endTime: orderEndtime,
+							sellerId: orderSellerid,
+							sellerName: orderSellername,
+							sellerIcon: orderSellericon
+						},
+						creatNew: true
+					});
+
+				});
+
+			}
+
+			function activityListener() {
+				var detailPage = null;
+				mui(".mui-content").on("tap", '.click-activity', function() {
+					var user = JSON.parse(localStorage.getItem('user'));
+					if(user[0].loginstatus == 'offline') {
+						plus.nativeUI.toast("请先登陆");
+						return;
+					}
+
+					var currentNode = this;
+					var list = currentNode.childNodes;
+					//									alert(list.length);
+					currentNode = list[0];
+					currentNode = currentNode.nextSibling.nextSibling;
+					//					alert(list[2].innerHTML);
+					var orderId = currentNode.lastChild.nodeValue;
+					currentNode = currentNode.nextSibling.nextSibling;
+					var orderContent = currentNode.lastChild.nodeValue;
+					currentNode = currentNode.nextSibling.nextSibling;
+					var orderTheme = currentNode.lastChild.nodeValue;
+					currentNode = currentNode.nextSibling.nextSibling;
+					var orderStatus = currentNode.lastChild.nodeValue;
+					currentNode = currentNode.nextSibling.nextSibling;
+					var orderEndtime = currentNode.lastChild.nodeValue;
+					currentNode = currentNode.nextSibling.nextSibling;
+					var orderSellerid = currentNode.lastChild.nodeValue;
+					currentNode = currentNode.nextSibling.nextSibling;
+					var orderSellername = currentNode.lastChild.nodeValue;
+					currentNode = currentNode.nextSibling.nextSibling;
+					var orderSellericon = currentNode.lastChild.nodeValue;
+					//				alert(orderId+"  "+orderContent+"/n"+orderTheme+"/n"+orderStatus+"/n"+orderEndtime+"/n"+orderSellerid+"/n"+orderSellername+"/n"+orderSellericon);return;
+
+					//			alert(orderId+";");
+					//获取详细界面 首先传输值 再打开
+					if(!detailPage) {
+						detailPage = plus.webview.getWebviewById("html/order/detail-order.html");
+					}
+					//				alert(detailPage);
+					//传输值
+					mui.fire(detailPage, "order-detail", {
+						id: orderId,
+						content: orderContent,
+						theme: orderTheme,
+						status: orderStatus,
+						endTime: orderEndtime,
+						sellerId: orderSellerid,
+						sellerName: orderSellername,
+						sellerIcon: orderSellericon
+					});
+
+					mui.openWindow({
+						url: "html/order/detail-order.html",
+						id: "html/order/detail-order.html"
+					});
+
+				});
+
+			}
+
+			mui.plusReady(
+				function() {
+					//get command
+					var command = plus.webview.currentWebview().command;
+					//				alert(command);
+					getServerData(command);
+					itemListener();
+					//					getActivityData(command);
+					//					activityListener()
+				}
+			);
+		</script>
+	</body>
+
+</html>

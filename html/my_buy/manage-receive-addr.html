@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+<style>
+		.mui-bar{
+			/*background: #fe5e55;*/
+			background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+		}
+		.mui-action-back {
+			color:#FFFFFF ;
+		}
+		.mui-title {
+			color:#FFFFFF ;
+		}
+	</style>
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">管理收货地址</h1>
+		</header>
+		<div class="mui-content">
+			
+
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right addnewaddr">
+						<!--<img src="../../images/60x60.gif" style="width: 30px; height: 30px;" />-->
+						<label>新增收货地址</label>
+					</a>
+				</li>
+				<ul class="mui-table-view" id="manage-addr">
+					<li class="mui-table-view-cell mui-media myaddrlist" v-for="item in items">
+						<a href="javascript:;" v-bind:name="item.addressid">
+							<!--<img class="mui-media-object mui-pull-right" src="http://placehold.it/40x30">-->
+							<!--点击图片编辑此地址-->
+							<div class="mui-media-body">
+								{{item.address}}
+								<p class="mui-ellipsis">{{item.name}}{{item.sex}}{{item.phone}}</p>
+							</div>
+						</a>
+					</li>
+				</ul>
+		</div>
+		<script src="../../js/vue.min.js"></script>
+		<script type="text/javascript">
+			document.getElementsByClassName("addnewaddr")[0].addEventListener("tap", function() {
+				mui.openWindow({
+					url: "edit-addr.html",
+					id: "edit-addr.html",
+					extras: {
+						name: "1"
+					}
+				});
+			});
+		</script>
+
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			var list = new Vue({
+				el: "#manage-addr",
+				data: {
+					items: []
+				}
+			});
+			//获取地址数据
+			mui.init()
+			//底部弹出框删除地址逻辑
+			mui('body').on('tap', '.myaddrlist', function() {
+				var a = this,
+					parent;
+				var btnArray = ['否', '确认'];
+				mui.confirm('确定删除该地址？', '删除地址', btnArray, function(e) {
+					if (e.index == 1) {
+//						alert(a.firstChild.name);
+						//删除逻辑
+						mui.post('http://39.108.159.175/phpworkplace/mui/order/maddress/deleteUserAddress.php',{
+							addressid:new Number(a.firstChild.name)
+						},function(data){
+							if(data.trim()=='执行失败'){
+								plus.nativeUI.toast('该地址使用中');
+							}else{
+								plus.nativeUI.toast(data.trim());
+							}
+							plus.webview.currentWebview().reload();
+						},'text');
+					} else {}
+				})
+			})
+			
+			mui.plusReady(function() {
+				//获取地址数据
+				var aid = JSON.parse(localStorage.getItem('user'))[0].aid;
+				mui.post('http://39.108.159.175/phpworkplace/mui/order/maddress/getUserAddress.php', {
+					aid: aid
+				}, function(data) {
+					//					alert(data);
+					var items = [];
+					if(data==null){
+						list.items=[];
+						return;
+					}
+					for(var i = 0; i < data.length; i++) {
+						items.push({
+							aid: data[i].aid,
+							addressid: data[i].addressid,
+							name: data[i].name,
+							sex: data[i].sex,
+							phone: "  手机：" + data[i].phone,
+							address: data[i].address
+						});
+					}
+					list.items = items;
+				}, 'json');
+			});
+		</script>
+	</body>
+
+</html>

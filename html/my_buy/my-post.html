@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>我的社区</title>
+		<script src="../../js/mui.min.js"></script>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<script src="../../js/vue.min.js"></script>
+	</head>
+<style>
+		.mui-bar{
+			/*background: #fe5e55;*/
+			background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+		}
+		.mui-action-back {
+			color:#FFFFFF ;
+		}
+		.mui-title {
+			color:#FFFFFF ;
+		}
+	</style>
+	<body>
+		<style>
+			* {
+				touch-action: none;
+			}
+			
+			.mui-control-content {
+				background-color: white;
+				min-height: 800px;
+			}
+			
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+		</style>
+		<header class="mui-bar mui-bar-nav mui-bar-transparent">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的群组</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-slider">
+				<!--<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">-->
+					<!--<a class="mui-control-item" href="#item1">全部群组</a>-->
+					<!--<a class="mui-control-item" href="#item2">我的群组</a>-->
+				<!--</div>-->
+				<!--<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>-->
+				<div class="mui-slider-group">
+					<!--<div id="item1" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell">
+										<ul class="mui-table-view" id="Allpostlist">
+											<li class="mui-table-view-cell mui-media listitem" v-for="item in items">
+												<div class="mui-slider-right mui-disabled ">
+													<a class="mui-btn mui-btn-red favourite">收藏</a>
+												</div>
+												<div class="mui-slider-handle">
+													<a href="javascript:;">
+														<img class="mui-media-object mui-pull-left" src="http://placehold.it/40x30">
+														<div class="mui-media-body">
+															<h4 style="margin-top: 0px;">{{item.posttheme}}</h4>
+															<p class="mui-ellipsis">{{item.posttime}}</p>
+															<p class="mui-ellipsis" style="display: none;">{{item.postid}}</p>
+														</div>
+													</a>
+												</div>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>-->
+					<div id="item2" class="mui-slider-item mui-control-content">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell">
+										<ul class="mui-table-view" id="postlist">
+											<li class="mui-table-view-cell mui-media listitem" v-for="item in items">
+												<div class="mui-slider-right mui-disabled">
+													<a class="mui-btn mui-btn-red delete">删除</a>
+												</div>
+												<div class="mui-slider-handle">
+													<a href="javascript:;">
+														<img class="mui-media-object mui-pull-left" src="http://placehold.it/40x30">
+														<div class="mui-media-body">
+															<h4 style="margin-top: 0px;">{{item.posttheme}}</h4>
+															<p class="mui-ellipsis">{{item.posttime}}</p>
+															<p class="mui-ellipsis" style="display: none;">{{item.postid}}</p>
+														</div>
+													</a>
+												</div>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script>
+			mui.init({
+				swipeBack: false
+			});
+//			(function($) {
+//				$('.mui-scroll-wrapper').scroll({
+//					indicators: true //是否显示滚动条
+//				});
+//				document.getElementById("post").addEventListener('tap', function() {
+//					mui.openWindow({
+//						url: "/html/community/post.html",
+//						id: "/html/community/post.html",
+//						creatNew: true
+//					});
+//				});
+//			})(mui);
+		</script>
+		<script>
+			var laid = JSON.parse(localStorage.getItem('user'))[0].aid;
+			var post_list = new Vue({
+				el: "#postlist",
+				data: {
+					items: []
+				}
+			});
+			var Allpost_list = new Vue({
+				el: "#Allpostlist",
+				data: {
+					items: []
+				}
+			});
+
+			function getMyPostList() {
+				mui.post('http://39.108.159.175/phpworkplace/mui/posts/getMyPost.php', {
+					aid: laid
+				}, function(data) {
+					var list = new Array();
+					if(data == null) {
+						post_list.items = [];
+						return;
+					}
+					for(var i = 0; i < data.length; i++) {
+						list.push({
+							postid: data[i].postid,
+							posttheme: data[i].posttheme,
+							posttime: data[i].posttime
+						});
+					}
+					post_list.items = list;
+				}, 'json');
+			}
+
+			function getAllPostList() {
+				mui.post('http://39.108.159.175/phpworkplace/mui/posts/getAllPost.php', {}, function(data) {
+					var list = new Array();
+					if(data == null) {
+						post_list.items = [];
+						return;
+					}
+					for(var i = 0; i < data.length; i++) {
+						list.push({
+							postid: data[i].postid,
+							posttheme: data[i].posttheme,
+							posttime: data[i].posttime
+						});
+					}
+					Allpost_list.items = list;
+				}, 'json');
+			}
+
+			function setItemListener() {
+				mui('#item2').on('tap', '.listitem', function() {
+					var itembody = this.childNodes[2].childNodes[0];
+					var theme = itembody.childNodes[2].childNodes[0].innerText;
+					var time = itembody.childNodes[2].childNodes[2].innerText;
+					var id = itembody.childNodes[2].childNodes[4].innerText;
+					id = new Number(id);
+
+					mui.openWindow({
+						url: "/html/community/follow-post.html",
+						id: "/html/community/follow-post.html",
+						extras: {
+							theme: theme,
+							time: time,
+							postid: id
+						},
+						creatNew: true
+					});
+
+				});
+				mui('#item2').on('tap', '.delete', function() {
+					var postidText = this.parentNode.nextSibling.nextSibling.childNodes[0].childNodes[2].childNodes[4].innerText;
+					delFromFav(postidText);
+				});
+			}
+
+			function setAllItemListener() {
+				mui('#item1').on('tap', '.listitem', function() {
+					//					alert("click");
+					var itembody = this.childNodes[2].childNodes[0];
+					var theme = itembody.childNodes[2].childNodes[0].innerText;
+					var time = itembody.childNodes[2].childNodes[2].innerText;
+					var id = itembody.childNodes[2].childNodes[4].innerText;
+					id = new Number(id);
+
+					mui.openWindow({
+						url: "/html/community/follow-post.html",
+						id: "/html/community/follow-post.html",
+						extras: {
+							theme: theme,
+							time: time,
+							postid: id
+						},
+						creatNew: true
+					});
+				});
+				mui('#item1').on('tap', '.favourite', function() {
+					//						alert("click");
+					var postidText = this.parentNode.nextSibling.nextSibling.childNodes[0].childNodes[2].childNodes[4].innerText;
+					//						alert(postidText+":"+typeof postidText);
+					addToFav(postidText);
+				});
+			}
+
+			function addToFav(postidText) {
+				var postid = new Number(postidText);
+				//				alert(postid+":"+typeof postid);
+				mui.post('http://39.108.159.175/phpworkplace/mui/posts/addToFav.php', {
+					postid: postid,
+					aid: laid
+				}, function(data) {
+					if(data.trim() == "succ") plus.nativeUI.toast('添加收藏成功');
+					else plus.nativeUI.toast('添加收藏失败，服务器繁忙');
+				}, 'text');
+				//刷新我的群组
+				getMyPostList();
+			}
+
+			function delFromFav(postidText) {
+				var postid = new Number(postidText);
+//				alert(postid + ":" + laid);
+				mui.post('http://39.108.159.175/phpworkplace/mui/posts/delFromFav.php', {
+					postid: postid,
+					aid: laid,
+				}, function(data) {
+					if(data.trim() == 'succ') plus.nativeUI.toast('删除成功');
+					else plus.nativeUI.toast('删除失败，服务器繁忙' + ":" + data.trim());
+				}, 'text');
+				//刷新我的群组
+				getMyPostList();
+			}
+
+			mui.plusReady(function() {
+				getMyPostList();
+				getAllPostList();
+				setAllItemListener();
+				setItemListener();
+			});
+		</script>
+	</body>
+
+</html>

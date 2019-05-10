@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="HandheldFriendly" content="true" />
+		<meta name="MobileOptimized" content="320" />
+		<title>Hello H5+</title>
+		<script type="text/javascript" src="../../../js/common.js"></script>
+		<script src="../../../js/vue.min.js"></script>
+		<script src="../../../js/mui.min.js"></script>
+		<link rel="stylesheet" href="../../../css/mui.min.css" type="text/css" charset="utf-8" />
+		<script type="text/javascript">
+			var img = null;
+			var blist = [];
+
+			function scaned(t, r, f) {
+				var d = new Date();
+				var h = d.getHours(),
+					m = d.getMinutes(),
+					s = d.getSeconds(),
+					ms = d.getMilliseconds();
+				if(h < 10) {
+					h = '0' + h;
+				}
+				if(m < 10) {
+					m = '0' + m;
+				}
+				if(s < 10) {
+					s = '0' + s;
+				}
+				if(ms < 10) {
+					ms = '00' + ms;
+				} else if(ms < 100) {
+					ms = '0' + ms;
+				}
+				var ts = '[' + h + ':' + m + ':' + s + '.' + ms + ']';
+				var li = null,
+					hl = document.getElementById('history');
+				if(blist.length > 0) {
+					li = document.createElement('li');
+					li.className = 'ditem';
+					hl.insertBefore(li, hl.childNodes[0]);
+				} else {
+					li = document.getElementById('nohistory');
+				}
+				li.id = blist.length;
+				var html = '[' + h + ':' + m + ':' + s + '.' + ms + ']' + '　　' + t + '码<div class="hdata">';
+				html += r;
+				html += '</div>';
+				li.innerHTML = html;
+				li.setAttribute('onclick', 'selected(id)');
+				blist[blist.length] = {
+					type: t,
+					result: r,
+					file: f
+				};
+				update(t, r, f);
+			}
+
+			function selected(id) {
+				var h = blist[id];
+				update(h.type, h.result, h.file);
+				if(h.result.indexOf('http://') == 0 || h.result.indexOf('https://') == 0) {
+					plus.nativeUI.confirm(h.result, function(i) {
+						if(i.index == 0) {
+							plus.runtime.openURL(h.result);
+						}
+					}, '', ['打开', '取消']);
+				} else {
+					plus.nativeUI.alert(h.result);
+				}
+			}
+
+			function update(t, r, f) {
+				//				outSet('扫描成功：');
+				//				outLine(t);
+				//				outLine(r);
+				//				outLine('\n图片地址：' + f);
+				mui.plusReady(function() {
+					mui.post('http://39.108.159.175/phpworkplace/mui/order/pay.php', {
+						orderid: new Number(plus.webview.currentWebview().orderId),
+						aid: new Number(plus.webview.currentWebview().laid)
+					}, function(data) {
+						if(data.trim() == '付款成功') {
+							plus.nativeUI.toast("付款成功");
+							mui.back();
+						} else {
+							plus.nativeUI.toast("付款失败");
+						}
+					}, 'text');
+				});
+				//				plus.nativeUI.toast("付款成功");
+				//				mui.back();
+				if(!f || f == 'null') {
+					img.src = '../../../images/barcode.png';
+				} else {
+					plus.io.resolveLocalFileSystemURL(f, function(entry) {
+						img.src = entry.toLocalURL();
+					});
+					//img.src = 'http://localhost:13131/'+f;
+				}
+			}
+		</script>
+		<link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+		<style type="text/css" media="screen">
+			.hdata {
+				color: #e1673e;
+				font-size: 14px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+		</style>
+		<style>
+			.mui-bar {
+				/*background: #fe5e55;*/
+				background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+			}
+			
+			.mui-action-back {
+				color: #FFFFFF;
+			}
+			
+			.mui-title {
+				color: #FFFFFF;
+			}
+		</style>
+	</head>
+
+	<body onload="img=document.getElementById('bimg')">
+		<header id="header" style="background: #fe5e55;">
+			<div class="nvbt iback" onclick="back()"></div>
+			<div class="nvtt" style="color: #ffffffs;">付款</div>
+			<!--<div class="nvbt idoc" onclick="openDoc('Barcode Document','/doc/barcode.html')"></div>-->
+		</header>
+		<div id="dcontent" class="dcontent" style="margin-top: 20%;">
+			<br/>
+			<img style="width:40%" id="bimg" src="../../../images/barcode.png" />
+			<br/>
+			<div class="button" onclick="update('barcode_scan2.html',true,true)" style="background: #fe5e55;">扫码付款</div>
+			<div class="button" onclick="clicked('barcode_scan.html',true,true)" style="background: #fe5e55;">扫一扫</div>
+		</div>
+		<!--<div id="output">
+			Barcode提供二维码扫描识别功能，支持调用摄像头即时扫描二维码，也可直接输入图片进行扫描识别。
+		</div>-->
+	</body>
+	<script type="text/javascript" src="../../../js/immersed.js"></script>
+	<script type="text/javascript">
+		function closeFather() {
+			plus.webview.currentWebview().opener().close();
+		}
+		mui.plusReady(function() {
+			setTimeout("closeFather()",1000);
+			var barposi = document.getElementById("bimg");
+			mui.post('http://39.108.159.175/phpworkplace/mui/order/uploadOrder/getOrderBarCode.php', {
+				orderid: new Number(plus.webview.currentWebview().orderId)
+			}, function(data) {
+				barposi.src = "http://39.108.159.175/phpworkplace/mui/barcode/" + data.trim();
+				//				alert(data+':'+new Number(plus.webview.currentWebview().orderId));
+				//				alert(barposi.src);
+			}, 'text');
+		});
+	</script>
+
+</html>

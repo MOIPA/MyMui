@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet" />
+		<link href="../../css/mui.picker.css" rel="stylesheet" />
+		<link href="../../css/mui.poppicker.css" rel="stylesheet" />
+		<link href="../../css/loginStyle/reg_white.css" rel="stylesheet" />
+		<script src="../../js/jquery-2.1.0.js"></script>
+		<script src="reg_animate.js"></script>
+		<style>
+			.mui-bar {
+				/*background: #fe5e55;*/
+				background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+			}
+			
+			.mui-action-back {
+				color: #FFFFFF;
+			}
+			
+			.mui-title {
+				color: #FFFFFF;
+			}
+		</style>
+		<!--<script src="../../js/jquery-2.1.0.js"></script>-->
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			
+			.mui-input-group label {
+				width: 22%;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 78%;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">注册</h1>
+		</header>
+		<div class="mui-content" style="margin-top: 5%;">
+
+			<!--asd-->
+
+			<div class="login-wrap">
+				<h2>welcome</h2>
+
+				<div class="form">
+					<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
+					<input id='password' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+					<input id='password_confirm' type="password" class="mui-input-clear mui-input" placeholder="请确认密码">
+					<input id='email' type="email" class="mui-input-clear mui-input" placeholder="请输入邮箱" style="margin-left: 10%; width: 80%;">
+					<button id='showUserPicker' style="margin-top: -1px;" class="mui-btn mui-btn-block" type='button'>选择社区</button>
+					<div class="mui-input-row mui-radio myrad">
+						<h5 style="margin-left: 20%;margin-top: 12px;">普通用户</h5>
+						<input name="radio" type="radio" checked>
+					</div>
+					<div class="mui-input-row mui-radio myrad" style="margin-bottom: 12px;">
+						<h5 style="margin-left: 20%;margin-top: 12px;">商家</h5>
+						<input name="radio" type="radio">
+					</div>
+					<!--<button id='createCom' style="margin-top: -1px;" class="mui-btn mui-btn-block" type='button'>创建社区</button>-->
+					<button id='reg' class="mui-btn mui-btn-block mui-btn-primary">注册</button>
+					<a style="margin-left: 10px;" id='createCom'>创建社区？</a>
+				</div>
+			</div>
+
+			<!--as-->
+			<!--<div class="mui-card">
+				<form class="mui-input-group">
+					<div class="mui-input-row">
+						<label>账号</label>
+						<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
+					</div>
+					<div class="mui-input-row">
+						<label>密码</label>
+						<input id='password' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+					</div>
+					<div class="mui-input-row">
+						<label>确认</label>
+						<input id='password_confirm' type="password" class="mui-input-clear mui-input" placeholder="请确认密码">
+					</div>
+					<div class="mui-input-row">
+						<label>邮箱</label>
+						<input id='email' type="email" class="mui-input-clear mui-input" placeholder="请输入邮箱">
+					</div>
+					<div class="mui-input-row mui-radio myrad">
+						<h5 style="margin-left: 15px;margin-top: 12px;">普通用户</h5>
+						<input name="radio" type="radio" checked>
+					</div>
+					<div class="mui-input-row mui-radio myrad">
+						<h5 style="margin-left: 15px;margin-top: 12px;">商家</h5>
+						<input name="radio" type="radio">
+					</div>
+					<button id='showUserPicker' style="margin-top: -1px;" class="mui-btn mui-btn-block" type='button'>选择社区</button>
+					<!--<button id='createCom' style="margin-top: -1px;" class="mui-btn mui-btn-block" type='button'>创建社区</button>-->
+			<!--<a style="margin-left: 10px;" id='createCom'>创建社区？</a>-->
+			<!--</form>-->
+
+			<!--</div>
+			<div class="mui-content-padded">
+				<button id='reg' class="mui-btn mui-btn-block mui-btn-primary">注册</button>
+			</div>-->
+			<!--<div class="mui-content-padded">-->
+			<!--<p>后期需要加入设置头像功能</p>-->
+			<!--</div>-->
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="app.js"></script>
+		<script type="text/javascript">
+			mui.init();
+		</script>
+		<script src="../../js/mui.picker.js"></script>
+		<script src="../../js/mui.poppicker.js"></script>
+		<script>
+			//			function getVals(){
+			//  var res = getRadioRes('radio');
+			//  if(res == null){mui.toast('请选择'); return;}
+			//  mui.toast(res);
+			//}
+			//function getRadioRes(className){
+			//  var rdsObj = document.getElementsByClassName(className);
+			//  var checkVal = null;
+			//  for(i = 0; i < rdsObj.length; i++){
+			//      if(rdsObj[i].checked){checkVal = rdsObj[i].value;}
+			//  }
+			//  return checkVal;
+			//}
+			function closeFather() {
+				//			alert("test");
+				plus.webview.currentWebview().opener().close('none');
+			}
+			(function($, doc) {
+
+				$.init();
+				$.plusReady(function() {
+					
+					window.addEventListener('close', function(event) {
+						plus.webview.currentWebview().close('none');
+					});
+					
+					var isfirst = plus.webview.currentWebview().first;
+					if(isfirst == null) {
+
+					} else if(isfirst == "yes") {
+						//						setTimeout("closeFather()", 1000);
+						var wbobj = plus.webview.currentWebview().opener();
+						mui.fire(wbobj, 'close', {
+							t: 't'
+						});
+					}
+
+					//重写回退信息避免下次使用缓存
+					//										var old_back = mui.back;
+					//										mui.back= function() {
+					//											var cwv = plus.webview.currentWebview();
+					//											old_back();
+					//											cwv.close();
+					//										};
+					//					plus.webview.currentWebview().opener().close();
+					//从服务器获取小区数据
+					var pickedComId = -1;
+					mui.post('http://39.108.159.175/phpworkplace/mui/login/getCom.php', {}, function(data) {
+						if(data == null || data.length == 0) {
+							plus.nativeUI.toast("无法连接服务器");
+							return;
+						}
+						//					选择器本地js逻辑
+						var _getParam = function(obj, param) {
+							return obj[param] || '';
+						};
+						//普通示例
+						var userPicker = new $.PopPicker();
+						var tmpData = [];
+
+						for(var i = 0; i < data.length; i++) {
+							tmpData.push({
+								value: data[i].cid,
+								text: data[i].cname
+							});
+							//						alert(data[i].mid+data[i].cname);
+						}
+						userPicker.setData(tmpData);
+
+						var showUserPickerButton = doc.getElementById('showUserPicker');
+						//					var userResult = doc.getElementById('userResult');
+						showUserPickerButton.addEventListener('tap', function(event) {
+							userPicker.show(function(items) {
+								showUserPickerButton.innerText = items[0].text;
+								pickedComId = new Number(items[0].value);
+								//返回 false 可以阻止选择框的关闭
+								//return false;
+							});
+						}, false);
+
+					}, 'json');
+
+					//获取注册信息
+					var settings = app.getSettings();
+					var regButton = doc.getElementById('reg');
+					var accountBox = doc.getElementById('account');
+					var passwordBox = doc.getElementById('password');
+					var passwordConfirmBox = doc.getElementById('password_confirm');
+					var emailBox = doc.getElementById('email');
+					regButton.addEventListener('tap', function(event) {
+						//判断用户是否确认注册
+						var btnArray = ['否', '是'];
+						mui.confirm('确定注册吗，确认？', '注册', btnArray, function(e) {
+							if(e.index == 1) {
+								//确认
+								//获取单选框的值
+								var rdsObj = document.getElementsByName("radio");
+								var checkCode = 1;
+								var identity;
+								for(i = 0; i < rdsObj.length; i++) {
+									if(rdsObj[i].checked) {
+										checkCode = i;
+									}
+								}
+								if(checkCode == 1) {
+									identity = '商家';
+								} else {
+									identity = '普通用户';
+								}
+								//								alert(identity);
+								//								return;
+								//检查是否注册小区
+								if(pickedComId == -1) {
+									plus.nativeUI.toast("请选择小区");
+									return;
+								}
+
+								//开始插入注册信息
+								var regInfo = {
+									account: accountBox.value,
+									password: passwordBox.value,
+									email: emailBox.value,
+									identity: identity,
+									cid: pickedComId
+								};
+								var passwordConfirm = passwordConfirmBox.value;
+								if(passwordConfirm != regInfo.password) {
+									plus.nativeUI.toast('密码两次输入不一致');
+									return;
+								}
+								app.reg(regInfo, function(err) {
+									if(typeof(err) != "object") {
+										//								alert(typeof err);
+										plus.nativeUI.toast(err);
+										return;
+									}
+									plus.nativeUI.toast('注册成功');
+									//							$.openWindow({
+									//								url: 'login.html',
+									//								id: 'login',
+									//								show: {
+									//									aniShow: 'pop-in'
+									//								}
+									//							});
+									mui.openWindow({
+										url: "/html/login/set_uicon.html",
+										id: "/html/login/set_uicon.html",
+										extras: {
+											aid: err
+										}
+									});
+									//									mui.back();
+								});
+
+							} else {
+								//未确认
+								return;
+							}
+						});
+
+					});
+				});
+
+			}(mui, document));
+		</script>
+		<script type="text/javascript">
+			document.getElementById("createCom").addEventListener('tap', function() {
+				mui.openWindow({
+					url: "/html/login/create_com.html",
+					id: "/html/login/create_com.html"
+				});
+				//				mui.back();
+			});
+		</script>
+	</body>
+
+</html>

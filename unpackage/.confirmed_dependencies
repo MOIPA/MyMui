@@ -1,0 +1,513 @@
+{
+  "index.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "html/tab-webview-subpage-about.html",
+      "fonts/mui.ttf",
+      "fonts/iconfont.ttf",
+      "js/util.js",
+      "html/tab-webview-subpage-chat.html"
+    ],
+    "refer": [
+      "html/tab-webview-subpage-setting.html",
+      "html/tab-webview-subpage-chat.html",
+      "html/tab-webview-subpage-contact.html",
+      "html/tab-webview-subpage-about.html",
+      "html/new-webview.html",
+      "html/tab-webview-subpage-community.html",
+      "html/tab-webview-subpage-me.html",
+      "html/order/detail-order.html",
+      "html/order/post-order.html"
+    ]
+  },
+  "launch.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "html/tab-webview-subpage-about.html"
+    ],
+    "refer": [
+      "html/tab-webview-subpage-setting.html",
+      "html/tab-webview-subpage-chat.html",
+      "html/tab-webview-subpage-contact.html",
+      "html/tab-webview-subpage-about.html"
+    ]
+  },
+  "html/tab-webview-subpage-setting.html": {
+    "resources": [
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": []
+  },
+  "html/tab-webview-subpage-about.html": {
+    "resources": [
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "js/util.js"
+    ],
+    "refer": []
+  },
+  "html/tab-webview-subpage-chat.html": {
+    "resources": [
+      "fonts/mui.ttf",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/vue.min.js"
+    ],
+    "refer": [
+      "html/news/detail.html"
+    ]
+  },
+  "html/tab-webview-subpage-contact.html": {
+    "resources": [
+      "images/60x60.gif",
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": []
+  },
+  "html/new-webview.html": {
+    "resources": [
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "fonts/mui.ttf"
+    ],
+    "refer": []
+  },
+  "html/tab-webview-subpage-me.html": {
+    "refer": [
+      "html/my_buy/my-post.html",
+      "html/my_buy/manage_receive_addr.html",
+      "html/my_buy/my-order.html",
+      "html/my_buy/my-favourite.html",
+      "html/my_buy/manage-receive-addr.html",
+      "html/my_buy/contact-chat.html",
+      "html/my_buy/join-us.html",
+      "html/my_buy/feed-back.html",
+      "html/my_buy/change-info.html",
+      "html/login/login.html",
+      "html/my_buy/edit-addr.html"
+    ],
+    "resources": [
+      "images/user_r_icon2.png",
+      "images/user_icon_bg2.png",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/me.css",
+      "css/me-back-icon.css",
+      "js/jquery-2.1.0.js"
+    ]
+  },
+  "html/my_buy/manage_receive_addr.html": {
+    "refer": [
+      "html/my_buy/edit-addr.html"
+    ],
+    "resources": []
+  },
+  "login.html": {
+    "refer": [
+      "main.html",
+      "reg.html",
+      "forget_password.html"
+    ],
+    "resources": []
+  },
+  "reg.html": {
+    "refer": [
+      "login.html"
+    ],
+    "resources": []
+  },
+  "main.html": {
+    "refer": [
+      "html/order/detail-order.html",
+      "html/order/post-order.html",
+      "html/tab-webview-subpage-community.html",
+      "html/tab-webview-subpage-me.html",
+      "html/tab-webview-subpage-chat.html",
+      "html/order/manage-order.html",
+      "yindao.html",
+      "html/login/login_choose_frame.html"
+    ],
+    "resources": [
+      "html/tab-webview-subpage-chat.html",
+      "js/pro_js/main_draw_listen.js",
+      "js/util.js",
+      "js/mui.min.js",
+      "html/login/app.js",
+      "images/sinaweibo.png",
+      "css/mui.min.css",
+      "images/qihoo.png",
+      "js/vue.min.js",
+      "images/qq.png",
+      "images/search.png",
+      "js/utitls.js",
+      "css/iconfont.css",
+      "fonts/icomoonCircle.ttf",
+      "js/pro_js/notification.js",
+      "images/time.png",
+      "images/peoples.png",
+      "images/add.png",
+      "images/home.png",
+      "images/follow.png",
+      "images/posted_order.png",
+      "images/main/icecream.png",
+      "images/bar.png",
+      "images/main/bag.png",
+      "images/main/house.png",
+      "images/fire.png"
+    ]
+  },
+  "html/login/login.html": {
+    "refer": [
+      "main.html",
+      "html/login/reg.html",
+      "html/login/forget_password.html",
+      "html/login/unlock.html",
+      "html/login/login.html"
+    ],
+    "resources": [
+      "js/mui.enterfocus.js",
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "html/login/app.js",
+      "images/weixin.png",
+      "css/loginStyle/login_white.css",
+      "html/login/animate.js",
+      "images/loginpic/food_bk.jpg",
+      "html/login/login.html"
+    ]
+  },
+  "test/a.html": {
+    "refer": [
+      "test/b.html"
+    ],
+    "resources": []
+  },
+  "html/login/reg.html": {
+    "refer": [
+      "html/login/login.html",
+      "html/login/set_uicon.html",
+      "html/login/create_com.html"
+    ],
+    "resources": [
+      "css/mui.min.css",
+      "css/style.css",
+      "css/mui.picker.css",
+      "css/mui.poppicker.css",
+      "js/mui.min.js",
+      "html/login/app.js",
+      "js/mui.picker.js",
+      "js/mui.poppicker.js"
+    ]
+  },
+  "html/my_buy/manage-receive-addr.html": {
+    "refer": [
+      "html/my_buy/edit-addr.html"
+    ],
+    "resources": [
+      "images/60x60.gif",
+      "css/mui.min.css",
+      "js/vue.min.js",
+      "js/mui.min.js"
+    ]
+  },
+  "html/login/create_com.html": {
+    "refer": [
+      "html/login/set_uicon.html"
+    ],
+    "resources": [
+      "css/mui.min.css",
+      "css/style.css",
+      "css/mui.picker.css",
+      "css/mui.poppicker.css",
+      "js/mui.min.js",
+      "html/login/app.js",
+      "js/mui.picker.js",
+      "js/mui.poppicker.js"
+    ]
+  },
+  "html/tab-webview-subpage-community.html": {
+    "resources": [
+      "fonts/mui.ttf",
+      "js/mui.js",
+      "css/mui.css",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/vue.min.js",
+      "images/group.png"
+    ],
+    "refer": [
+      "html/community/post.html",
+      "html/community/follow-post.html",
+      "html/community/follow-post2.html"
+    ]
+  },
+  "html/my_buy/contact-chat.html": {
+    "resources": [
+      "js/mui.imageViewer.js",
+      "css/app.css",
+      "css/mui.imageviewer.css",
+      "js/arttmpl.js",
+      "css/mui.min.css",
+      "images/60x60.gif",
+      "js/mui.min.js"
+    ],
+    "refer": []
+  },
+  "html/order/detail-order.html": {
+    "resources": [
+      "js/jquery-2.1.0.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "js/vue.min.js",
+      "css/mui.poppicker.css",
+      "css/mui.picker.css",
+      "js/mui.poppicker.js",
+      "js/mui.picker.js",
+      "js/mui.zoom.js",
+      "js/mui.previewimage.js"
+    ],
+    "refer": [
+      "html/order/scan_barcode/pay.html"
+    ]
+  },
+  "html/order/post-order.html": {
+    "resources": [
+      "js/common.js",
+      "css/iconfont.css",
+      "css/font-awesome.min.css",
+      "js/utitls.js",
+      "css/feedback-page.css",
+      "js/jquery.js",
+      "images/iconfont-tianjia.png",
+      "fonts/fontawesome-webfont.ttf",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "css/app.css",
+      "css/mui.picker.min.css",
+      "js/mui.picker.min.js"
+    ],
+    "refer": [
+      "html/order/post-order.html",
+      "html/order/uploadOrderBarcode.html"
+    ]
+  },
+  "html/my_buy/edit-addr.html": {
+    "resources": [
+      "css/mui.min.css",
+      "css/mui.poppicker.css",
+      "css/mui.picker.css",
+      "js/mui.min.js",
+      "js/mui.picker.js",
+      "js/mui.poppicker.js"
+    ],
+    "refer": []
+  },
+  "html/commnuity/post.html": {
+    "resources": [
+      "js/mui.js",
+      "css/mui.css"
+    ],
+    "refer": []
+  },
+  "yindao.html": {
+    "resources": [
+      "js/mui.js",
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "html/login/login_choose_frame.html"
+    ]
+  },
+  "html/login/login_choose_frame.html": {
+    "refer": [
+      "html/login/login.html",
+      "html/login/reg.html"
+    ],
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "images/loginpic/ic_qq_login.png",
+      "images/loginpic/ic_weixin_login.png",
+      "images/loginpic/ic_weibo_login.png",
+      "images/loginpic/ic_tencent_login.png",
+      "images/loginpic/ic_renren_login.png",
+      "images/loginpic/pic_login.png",
+      "images/loginpic/other_login.png"
+    ]
+  },
+  "test/test2.html": {
+    "refer": [
+      "test/barcode_scan.html",
+      "test/barcode_scan2.html"
+    ],
+    "resources": []
+  },
+  "html/order/scan_barcode/pay.html": {
+    "refer": [
+      "html/order/scan_barcode/barcode_scan.html"
+    ],
+    "resources": [
+      "js/immersed.js",
+      "js/common.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "images/barcode.png",
+      "css/common.css"
+    ]
+  },
+  "html/login/unlock.html": {
+    "href": "html/login/unlock.html",
+    "resources": [],
+    "refer": [
+      "html/login/login.html"
+    ],
+    "priority": 0
+  },
+  "html/login/forget_password.html": {
+    "href": "html/login/forget_password.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/style.css",
+      "js/mui.min.js",
+      "html/login/app.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/login/set_uicon.html": {
+    "href": "html/login/set_uicon.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/app.css",
+      "css/iconfont.css",
+      "css/feedback-page.css",
+      "css/font-awesome.min.css",
+      "js/jquery.js",
+      "js/mui.min.js",
+      "js/common.js",
+      "js/utitls.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/my_buy/my-post.html": {
+    "href": "html/my_buy/my-post.html",
+    "resources": [
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/my_buy/join-us.html": {
+    "href": "html/my_buy/join-us.html",
+    "resources": [
+      "css/mui.min.css",
+      "images/user_r_icon2.png",
+      "js/mui.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/my_buy/change-info.html": {
+    "href": "html/my_buy/change-info.html",
+    "resources": [
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "html/my_buy/edit-addr.html"
+    ],
+    "priority": 0
+  },
+  "html/my_buy/my-order.html": {
+    "href": "html/my_buy/my-order.html",
+    "resources": [
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/my_buy/feed-back.html": {
+    "href": "html/my_buy/feed-back.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/feedback.css",
+      "js/mui.min.js",
+      "js/feedback.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/my_buy/my-favourite.html": {
+    "href": "html/my_buy/my-favourite.html",
+    "resources": [
+      "css/mui.min.css",
+      "js/mui.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/news/detail.html": {
+    "href": "html/news/detail.html",
+    "resources": [
+      "js/mui.min.js",
+      "js/vue.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/community/post.html": {
+    "href": "html/community/post.html",
+    "resources": [
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "js/utitls.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/community/follow-post.html": {
+    "href": "html/community/follow-post.html",
+    "resources": [
+      "css/mui.min.css",
+      "html/community/follow_post.css",
+      "js/vue.min.js",
+      "js/mui.min.js",
+      "js/utitls.js",
+      "images/send.png"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "html/order/manage-order.html": {
+    "href": "html/order/manage-order.html",
+    "resources": [
+      "css/mui.min.css",
+      "js/vue.min.js",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "html/order/detail-order.html"
+    ],
+    "priority": 0
+  },
+  "html/order/scan_barcode/barcode_scan.html": {
+    "href": "html/order/scan_barcode/barcode_scan.html",
+    "resources": [
+      "js/common.js",
+      "css/common.css"
+    ],
+    "refer": [],
+    "priority": 0
+  }
+}

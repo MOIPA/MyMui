@@ -1,0 +1,62 @@
+<!DOCTYPE html>  
+<html>  
+    <head>  
+        <meta charset="UTF-8">  
+        <title></title>  
+        <link href="../css/mui.min.css" rel="stylesheet" />  
+        <script src="../js/mui.min.js"></script>  
+    </head>  
+    <body>  
+    	<div class="mui-content">
+    	    <div class="mui-card click-order" style="margin: 3px;margin-left: 2%; border-radius: 4px; width: 26%;" v-bind:style="item.float" v-for="item in items">
+										<div class="mui-card-header mui-card-media">
+											<img v-bind:src="'http://39.108.159.175/phpworkplace/mui/uiconpic/'+item.uiconsrc" style="float: left;width: 40px;" />
+											<div style="background: #3fc4a1;border-radius: 30px; size: 30px 30px;position: absolute;right: 3px;top: 3px;"><img align="center" src="../images/add.png" style="border-radius: 130px;width: 30px;"/></div>
+											<div class="mui-media-body" style="float: none;">
+												tr123<br>发布于2018-1-1
+												<!--<p style="color: #DD524D;size: 10px;bottom: 3px;">已结束</p>-->
+											</div>
+										</div>
+										<div class="mui-card-content" style="margin: auto auto;">
+											<center>
+												<div style="margin:4px auto; width: 80%;height:70px;border-radius: 3px;background-position:center; background: no-repeat center center;background-size: contain;background-repeat: no-repeat;" v-bind:style="{background:item.bk}"></div>
+											</center>
+											<!--<p style="color: #777777;margin-left: 10%;margin-bottom: 27px;">主题：123<br/>时效截至：2018-1-1<br/> <img src="../images/peoples.png" height="15px"width="15px" />11</p>-->
+											<p style="color: #c3ae53;font-size:6px;"><img src="../images/peoples.png" height="15px"width="15px" />&nbsp;11&nbsp;用户跟单&nbsp;&nbsp;<img src="../images/peoples.png" height="15px"width="15px" />&nbsp;11&nbsp;时效截至：2018-1-1</p>
+										</div>
+										<a class="mui-card-link" style="position: absolute;right: 14px;bottom: 3px;">收藏订单</a>
+										<p id="hidden_orderid" style="display: none;">{{item.orderid}}</p>
+										<p id="hidden_ordercontent" style="display: none;">{{item.ordercontent}}</p>
+										<p id="hidden_ordertheme" style="display: none;">{{item.ordertheme}}</p>
+										<p id="hidden_orderstatus" style="display: none;">{{item.orderstatus}}</p>
+										<p id="hidden_endtime" style="display: none;">{{item.ordertime}}</p>
+										<p id="hidden_sellerid" style="display: none;">{{item.promulgatorid}}</p>
+										<p id="hidden_sellername" style="display: none;">{{item.account}}</p>
+										<p id="hidden_sellericon" style="display: none;">{{item.uiconsrc}}</p>
+										<p id="hidden_sellername" style="display: none;">{{item.peoplelimit}}</p>
+										<p id="hidden_sellericon" style="display: none;">{{item.currentpeople}}</p>
+									</div>
+    	</div>
+          
+        <script type="text/javascript" charset="utf-8">  
+            mui.init()  
+            mui.plusReady(function(){  
+                alert('1')  
+//              var self=plus.webview.currentWebview();  
+//              console.log(JSON.stringify(self))     
+                mui("body").on("tap",".a",function(){  
+                     mui.openWindow({  
+                        url:"b.html",  
+                        id:"b",  
+                     })  
+                })  
+            });  
+        </script>  
+          
+          <div class="mui-content">
+        <a href="javascript:void(0)" class="a">跳到b</a>  
+              
+          </div>
+
+    </body>   
+</html>  

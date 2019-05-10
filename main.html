@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>we chat buy</title>
+		<script src="js/mui.min.js"></script>
+		<script>
+			if(JSON.parse(localStorage.getItem('user')) == null) {
+				mui.plusReady(function() {
+					mui.openWindow({
+						url: "yindao.html",
+						id: "yindao.html"
+					})
+				});
+			}
+		</script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<script src="js/vue.min.js"></script>
+		<script src="js/util.js"></script>
+		<script src="html/login/app.js"></script>
+		<script src="js/utitls.js"></script>
+		<link href="css/iconfont.css" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			/** {
+				touch-action: none;
+			}
+			*/
+			/*.mui-active {
+				color: #99c600;
+			}*/
+			
+			.mui-icon:active {
+				color: #0084CF;
+				opacity: 1;
+			}
+			
+			.mui-control-content {
+				background-color: white;
+				min-height: 215px;
+			}
+			
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			
+			.mui-slider-title {
+				background-color: rgba(65, 206, 169, .4);
+			}
+			
+			.mui-bar .mui-btn-link {
+				color: white;
+			}
+			
+			.mui-bar-transparent {
+				-webkit-box-shadow: none;
+				box-shadow: none;
+				/*background-color: rgba(65, 206, 169, .1);*/
+				border: 0px;
+			}
+			/*.mui-bar-transparent{
+				background-color: #4CD964;
+			}*/
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+				padding-bottom: 51px;
+			}
+		</style>
+	</head>
+	<style>
+		.mui-bar {
+			/*background: #fe5e55;*/
+			background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+		}
+		
+		.mui-action-back {
+			color: #FFFFFF;
+		}
+		
+		.mui-title {
+			color: #FFFFFF;
+		}
+		
+		.mui-content {
+			/*background: #c7efcf;*/
+		}
+	</style>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+			<label class="" style="margin-top: 11px; float: left;">
+				<img src="images/bar.png" style="height: 20px;width: 20px;"/>
+			</label>
+			<div class="search mui-search">
+				<i style="background-image: url(images/search.png);background-repeat: no-repeat;background-position: 0px 0px;background-size: 20px 20px; width: 30px;height: 30px;top: 12px;left: 60px;position: absolute;"></i>
+				<input type="search" placeholder="搜索" style=" padding-left: 30px; margin-left: 10px; margin-top: 7px; border-radius: 30px;width: 85%;height: 30px; background-color: #FFFFFF;" />
+
+				<!--系统的-->
+				<!--<div class="mui-input-row mui-search" style="margin-top: -20px;">
+					<input type="search" class="mui-input-clear" placeholder="">
+				</div>-->
+			</div>
+		</header>
+		<div class="mui-content" id="Alllist" style="margin-bottom: 66px;">
+			<!--图片轮播html代码-->
+			<div id="slider" class="mui-slider my-mui-slider">
+			</div>
+			<!--end pic show-->
+
+			<!--<div id="castlist">
+				<div v-for="item in items">
+					<img v-bind:src="'http://39.108.159.175/phpworkplace/mui/castpic/'+item.picname" />
+					<p>ceshi</p>
+				</div>
+			</div>-->
+			<!--导航栏html代码-->
+			<ul class="mui-table-view mui-grid-view mui-grid-9" style="background:#efeff4 ; border-radius: 0px;margin-top: 2px;padding-left:10%;width:100%;margin: auto auto;background: #ffffff;">
+				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="padding: 0px 0px;border: 0px;">
+					<a href="#">
+						<!--<div style="margin: auto auto; background-position:center; height: 40px;width: 40px;background: url(images/qihoo.png);background:no-repeat auto center center;background-repeat: no-repeat; background-size: contain;"></div>-->
+						<!--<table style="background-position:center; background-repeat:no-repeat;" background="images/qq.png" style="background-size: contain;">-->
+						<div style="height: 30px;width: 30px;margin: 0px auto; background: url(images/house.png);background-size: contain;background-repeat: no-repeat;"></div>
+						<div class="mui-media-body" style="color: #707072;">社区</div>
+					</a>
+				</li>
+				<li id="my-posted-order-a" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px 0px;border: 0px;">
+					<a href="#">
+						<!--<div style="margin: auto auto; background-position:center; height: 40px;width: 40px;background: url(images/qq.png);background:no-repeat auto center center;background-repeat: no-repeat; background-size: contain;"></div>-->
+						<!--<span class="mui-icon mui-icon-plus">-->
+						<div style="height: 30px;width: 30px;margin: 0px auto; background: url(images/icream.png);background-size: contain;background-repeat: no-repeat;"></div>
+						<div id="my-posted-order-div" class="mui-media-body" style="color: #707072;">我的发布</div>
+					</a>
+				</li>
+				<li id="my-followed-order-a" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px 0px;border: 0px;">
+					<a href="#">
+						<!--<div style="margin: auto auto; background-position:center; height: 40px;width: 40px;background: url(images/sinaweibo.png);background:no-repeat auto center center;background-repeat: no-repeat; background-size: contain;"></div>-->
+
+						<div style="height: 30px;width: 30px;margin: 0px auto; background: url(images/bag.png);background-size: contain;background-repeat: no-repeat;"></div>
+
+						<div id="my-followed-order-div" class="mui-media-body" style="color: #707072;">我的参与</div>
+					</a>
+				</li>
+
+			</ul>
+
+			<!--hot list-->
+			<div id="hotlist">
+				<div class="mui-card click-order" style="border-radius: 4px;" v-for="item in items">
+					<div class="mui-card-content" style="margin: auto auto;">
+						<div style="background: #fe5e55;border-radius: 3px; size: 40px 40px;position: absolute;left: 10px;top: 0px;border: #4CD964;"><img align="center" src="images/fire.png" style="width: 30px;" /></div>
+						<center>
+							<!--<div style="margin:0px auto; width: 100%;height:120px;border-radius: 3px;background-position:center; background: no-repeat center center;background-size: contain;background-repeat: no-repeat;" v-bind:style="{background:item.bk}">
+							</div>-->
+							<!--<img src="http://39.108.159.175/phpworkplace/mui/pic/test2-d0489cbb4df9e225db2920e769732d94.jpg" style="width: 100%;"/>-->
+							<!--<img v-bind:src="'http://39.108.159.175/phpworkplace/mui/castpic/'+item.picname" />-->
+							<img v-bind:src="'http://39.108.159.175/phpworkplace/mui/pic/'+item.bk" style="width: 100%;" />
+						</center>
+						<p style="margin-left: 10%;margin-bottom: 7px;font-size: 12px; color:#3fc4a1;">{{item.orderstatus}}</p>
+						<p style="margin-left: 10%;margin-bottom: 11px;color: #000000;font-size: 20px;">{{item.ordertheme}}</p>
+						<!--<img style="height: 30px;width: 30px;float: right;margin-top: -20px;margin-right: 20px;" src="images/fire.png" />-->
+						<h5 style="margin-left: 10%;margin-bottom: 7px;width: 80%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{item.ordercontent}}</h5>
+						<p style="color: #c3ae53;margin-right: 6%;margin-bottom: 3px;font-size: 11px;float: right;">
+							<img src="images/time.png" height="11px" width="11px" />&nbsp;&nbsp;{{item.posttime}}发布&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/peoples.png" height="11px" width="11px" />&nbsp;&nbsp;{{item.followers}}用户
+						</p>
+					</div>
+					<a class="mui-card-link" style="position: absolute;right: 14px;bottom: 3px;display: none;">{{item.orderstatus}}</a>
+					<p id="hidden_orderid" style="display: none;">{{item.orderid}}</p>
+					<p id="hidden_ordercontent" style="display: none;">{{item.ordercontent}}</p>
+					<p id="hidden_ordertheme" style="display: none;">{{item.ordertheme}}</p>
+					<p id="hidden_orderstatus" style="display: none;">{{item.orderstatus}}</p>
+					<p id="hidden_endtime" style="display: none;">{{item.ordertime}}</p>
+					<p id="hidden_sellerid" style="display: none;">{{item.promulgatorid}}</p>
+					<p id="hidden_sellername" style="display: none;">{{item.account}}</p>
+					<p id="hidden_sellericon" style="display: none;">{{item.uiconsrc}}</p>
+					<p id="hidden_sellername" style="display: none;">{{item.peoplelimit}}</p>
+					<p id="hidden_sellericon" style="display: none;">{{item.currentpeople}}</p>
+				</div>
+			</div>
+
+			<!--end-->
+
+			<div id="list">
+
+				<!--<div id="slider" class="mui-slider">
+					<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+						<a class="mui-control-item" href="#item1">订单</a>
+						<a class="mui-control-item" href="#item2">活动</a>
+					</div>
+					<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+					<div class="mui-slider-group">
+						<div id="item1" class="mui-slider-item mui-control-content mui-active">
+							<div id="scroll1" class="mui-scroll-wrapper">
+								<div class="mui-scroll">-->
+
+				<div class="mui-card click-order" style="margin: 3px;margin-left: 2%; border-radius: 4px; width: 46%;" v-bind:style="item.float" v-for="item in items">
+					<!--<div class="mui-card-header mui-card-media">
+						<img v-bind:src="'http://39.108.159.175/phpworkplace/mui/uiconpic/'+item.uiconsrc" style="float: left;width: 40px;border-radius: 5px;" />
+						<div style="background: #3fc4a1;border-radius: 30px; size: 30px 30px;position: absolute;right: 3px;top: 3px;"><img align="center" src="images/add.png" style="width: 30px;" /></div>
+						<div class="mui-media-body" style="float: none;">
+							{{item.account}}<br>发布于{{item.posttime}}
+						</div>
+					</div>-->
+					<div class="mui-card-content" style="margin: auto auto;">
+						<!--<div style="background: #3fc4a1;border-radius: 30px; size: 30px 30px;position: absolute;right: 6px;top: 6px;"><img align="center" src="images/add.png" style="width: 30px;" /></div>-->
+						<center>
+							<div style="margin:0px auto; width: 100%;height:120px;border-radius: 3px;background-position:center; background: no-repeat center center;background-size: contain;background-repeat: no-repeat;" v-bind:style="{background:item.bk}"></div>
+						</center>
+						<p style="margin-left: 10%;margin-bottom: 3px;font-size: 12px; color:#3995bc;">{{item.orderstatus}}</p>
+						<p style="margin-left: 10%;margin-bottom: 7px;color: #000000;font-size: 20px;">{{item.ordertheme}}</p>
+						<h5 style="margin-left: 10%;margin-bottom: 3px;width: 80%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{item.ordercontent}}</h5>
+						<p style="color: #c3ae53;margin-left: 10%;margin-bottom: 3px;font-size: 11px;">
+							<img src="images/time.png" height="11px" width="11px" />&nbsp;&nbsp;{{item.posttime}}发布&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/peoples.png" height="11px" width="11px" />&nbsp;&nbsp;{{item.followers}}用户
+						</p>
+						<!--<p style="color: #c3ae53;margin-left: 10%;margin-bottom: 27px;font-size: 11px;"><img src="images/time.png" height="11px"width="11px" />&nbsp;&nbsp;{{item.followers}}用户</p>-->
+
+						<!--<p style="color: #DD524D;size: 10px;bottom: 3px;">{{item.orderstatus}}</p>-->
+					</div>
+					<a class="mui-card-link" style="position: absolute;right: 14px;bottom: 3px;display: none;">{{item.orderstatus}}</a>
+					<p id="hidden_orderid" style="display: none;">{{item.orderid}}</p>
+					<p id="hidden_ordercontent" style="display: none;">{{item.ordercontent}}</p>
+					<p id="hidden_ordertheme" style="display: none;">{{item.ordertheme}}</p>
+					<p id="hidden_orderstatus" style="display: none;">{{item.orderstatus}}</p>
+					<p id="hidden_endtime" style="display: none;">{{item.ordertime}}</p>
+					<p id="hidden_sellerid" style="display: none;">{{item.promulgatorid}}</p>
+					<p id="hidden_sellername" style="display: none;">{{item.account}}</p>
+					<p id="hidden_sellericon" style="display: none;">{{item.uiconsrc}}</p>
+					<p id="hidden_sellername" style="display: none;">{{item.peoplelimit}}</p>
+					<p id="hidden_sellericon" style="display: none;">{{item.currentpeople}}</p>
+				</div>
+				<!--</div>
+							</div>
+						</div>
+						<div id="item2" class="mui-slider-item mui-control-content">
+							<div id="scroll2" class="mui-scroll-wrapper">
+								<div class="mui-scroll">
+									<div class="mui-loading">
+										<div class="mui-spinner">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>-->
+
+			</div>
+			<!--end card-->
+
+			<!--锚点用于popover显示-->
+			<div id="openBottomPopover" style="bottom: 65px;left:48%;position: fixed;"></div>
+		</div>
+
+		<!--底部弹出菜单-->
+		<div id="bottomPopover" class="mui-popover mui-popover-bottom" style="height: 100px;z-index: 1000;">
+			<div class="mui-popover-arrow"></div>
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<a id="person-order">个人订单</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a id="bussiness-order">发布活动</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="js/pro_js/main_draw_listen.js"></script>
+		<script type="text/javascript">
+			//						localStorage.clear();
+			mui.init({
+					swipeBack: false
+				}
+
+			);
+			(function($) {
+					$('.mui-scroll-wrapper').scroll({
+						indicators: true //是否显示滚动条
+					});
+			}
+			)(mui);
+			//			return;
+			//			alert(dateUtils.format("2017-3-3 12:42:32"));
+			//解决软键盘挤压页面
+			//获取原始窗口的高度
+			//			var originalHeight = document.documentElement.clientHeight || document.body.clientHeight;
+			//
+			//			window.onresize = function() {
+			//
+			//				//软键盘弹起与隐藏  都会引起窗口的高度发生变化
+			//				var resizeHeight = document.documentElement.clientHeight || document.body.clientHeight;
+			//
+			//				if(resizeHeight * 1 < originalHeight * 1) { //resizeHeight<originalHeight证明窗口被挤压了
+			//
+			//					plus.webview.currentWebview().setStyle({
+			//						height: originalHeight
+			//					});
+			//
+			//				}
+			//			}
+			//获取轮播
+			//获得轮播图片列表
+			mui.post('http://39.108.159.175/phpworkplace/mui/order/getCastPic.php', {},
+				function(data) {
+					if(data != null) {
+						var middlePicNode = '';
+						//首先添加首位和末尾
+						var firstPicNode = ""; //最后一张图片
+						firstPicNode += "<div class=\"mui-slider-group mui-slider-loop\">";
+						firstPicNode += "<div class=\"mui-slider-item mui-slider-item-duplicate\">";
+						firstPicNode += "<a href=\"#\">";
+						firstPicNode += "<img src=\"http://39.108.159.175/phpworkplace/mui/castpic/" + data[data.length - 1].picname + "\" />";
+						firstPicNode += "<p class=\"mui-slider-title\">社区大事件</p>";
+						firstPicNode += "</a>";
+						firstPicNode += "</div>";
+						var lastPicNode = ""; //第一张图片
+						lastPicNode += "<div class=\"mui-slider-item mui-slider-item-duplicate\">";
+						lastPicNode += "<a href=\"#\">";
+						lastPicNode += "<img src=\"http://39.108.159.175/phpworkplace/mui/castpic/" + data[0].picname + "\" />";
+						lastPicNode += "<p class=\"mui-slider-title\">社区大事件</p>";
+						lastPicNode += "</a>";
+						lastPicNode += "</div>";
+						lastPicNode += "</div>";
+						for(var i = 0; i < data.length; i++) {
+							middlePicNode += "<div class=\"mui-slider-item\">";
+							middlePicNode += "<a href=\"#\">";
+							middlePicNode += "<img src=\"http://39.108.159.175/phpworkplace/mui/castpic/" + data[i].picname + "\" />";
+							middlePicNode += "<p class=\"mui-slider-title\">社区头条</p>";
+							middlePicNode += "</a>";
+							middlePicNode += "</div>";
+							data[i].picname;
+						}
+						var picNodes = firstPicNode + middlePicNode + lastPicNode;
+						var bottomCirc = "";
+						bottomCirc += "<div class=\"mui-slider-indicator\" >";
+						bottomCirc += "<div class=\"mui-indicator mui-active\"></div>";
+						for(var i = 1; i < data.length; i++) {
+							bottomCirc += "<div class=\"mui-indicator\" ></div>";
+						}
+						bottomCirc += "</div>";
+						document.getElementById("slider").innerHTML = picNodes + bottomCirc;
+						console.log(document.getElementById("slider").innerHTML);
+						mui("#slider").slider();
+						var gallery = mui('.my-mui-slider');
+						gallery.slider({
+							interval: 3000 //自动轮播周期，若为0则不自动播放，默认为0；  
+						});
+						//							domCode+="</div>";
+					}
+				}
+				, 'json');
+			//					<div class="mui-slider-group mui-slider-loop">
+			//					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+			//					<div class="mui-slider-item mui-slider-item-duplicate">
+			//						<a href="#">
+			//							<!--<img src="http://placehold.it/500x300">-->
+			//						</a>
+			//					</div>
+			//					<!-- 第一张 -->
+			//					<div class="mui-slider-item" v-for="item in items" >
+			//							<a href="#">
+			//								<img v-bind:src="'http://39.108.159.175/phpworkplace/mui/castpic/'+item.picname" />
+			//							</a>
+			//					</div>
+			//					<!-- 第二张 -->
+			//					<div class="mui-slider-item">
+			//						<a href="#">
+			//							<img src="http://placehold.it/500x300">
+			//						</a>
+			//					</div>
+			//					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+			//					<div class="mui-slider-item mui-slider-item-duplicate">
+			//						<a href="#">
+			//							<!--<img src="http://placehold.it/500x300">-->
+			//						</a>
+			//					</div>
+			//				</div>
+			//				<div class="mui-slider-indicator" >
+			//					<div class="mui-indicator mui-active"></div>
+			//					<div class="mui-indicator" v-for="item in items"></div>
+			//				</div>
+			//			如果未登录进入登陆模块
+			//			if(JSON.parse(localStorage.getItem('user'))[0].loginstatus=="offline"){
+			//				mui.openWindow({
+			//					url:"html/"
+			//				});
+			//			}
+			//自动登陆模块
+			var settings = app.getSettings();
+			if(settings.autoLogin) {
+				//说明开启了自动登陆
+				//登陆的网络操作……**************************
+				//登陆失败需要设置登陆状态offline
+				//**************************************
+				var user = JSON.parse(localStorage.getItem('user'));
+				user[0].loginstatus = "online";
+				localStorage.setItem('user', JSON.stringify(user));
+			} else {
+				//未设置自动登陆
+				var user = JSON.parse(localStorage.getItem('user'));
+				if(user == null) {
+					var logininfo = {};
+					logininfo.loginstatus = "offline";
+					user = [];
+					user.push(logininfo);
+					localStorage.setItem("user", JSON.stringify(user));
+				}
+				user[0].loginstatus = "offline";
+				localStorage.setItem('user', JSON.stringify(user));
+			}
+
+			//用户点击订单详细界面 启动detail-order界面 传递order的id
+			var detailPage = null;
+			mui(".mui-content").on("tap", '.click-order', function() {
+					var user = JSON.parse(localStorage.getItem('user'));
+					if(user[0].loginstatus == 'offline') {
+						plus.nativeUI.toast("请先登陆");
+						//					return;
+					} else {
+						//从兄弟节点获取 成功！！！！！！！！！
+						//				var nextSib = this.nextSibling;
+						//				alert(nextSib);
+						//				alert(this.nextSibling.nextSibling.lastChild.nodeValue);
+						//				console.log(this.nextSibling.nextSibling.firstChild.nodeValue);
+						//				console.log(this.nextSibling.nextSibling.nextSibling.nextSibling.lastChild.nodeValue);
+						//从父节点获取子节点失败
+						//				var par = this.parentNode;
+						//				var childNodes = par.childNodes;
+						//				alert(childNodes);
+						//				var childid = childNodes.getElementsByTagName("hidden_orderid").innerHTML;
+						//				alert(childid);
+						//获取用户点击的单子的id
+						//				var orderId = document.getElementById("hidden_orderid").innerHTML;
+						//				var orderContent = document.getElementById("hidden_ordercontent").innerHTML;
+						//				var orderTheme = document.getElementById("hidden_ordertheme").innerHTML;
+						//				var orderStatus = document.getElementById("hidden_orderstatus").innerHTML;
+						//				var orderEndtime = document.getElementById("hidden_endtime").innerHTML;
+						//				var orderSellerid = document.getElementById("hidden_sellerid").innerHTML;
+						//				var orderSellername = document.getElementById("hidden_sellername").innerHTML;
+						//				var orderSellericon = document.getElementById("hidden_sellericon").innerHTML;
+						var currentNode = this;
+						var list = currentNode.childNodes;
+						//				alert(list[6].innerHTML);
+						currentNode = list[2];
+						currentNode = currentNode.nextSibling.nextSibling;
+						var orderId = currentNode.lastChild.nodeValue;
+						currentNode = currentNode.nextSibling.nextSibling;
+						var orderContent = currentNode.lastChild.nodeValue;
+						currentNode = currentNode.nextSibling.nextSibling;
+						var orderTheme = currentNode.lastChild.nodeValue;
+						currentNode = currentNode.nextSibling.nextSibling;
+						var orderStatus = currentNode.lastChild.nodeValue;
+						currentNode = currentNode.nextSibling.nextSibling;
+						var orderEndtime = currentNode.lastChild.nodeValue;
+						currentNode = currentNode.nextSibling.nextSibling;
+						var orderSellerid = currentNode.lastChild.nodeValue;
+						currentNode = currentNode.nextSibling.nextSibling;
+						var orderSellername = currentNode.lastChild.nodeValue;
+						currentNode = currentNode.nextSibling.nextSibling;
+						var orderSellericon = currentNode.lastChild.nodeValue;
+						//活动数据 在普通订单中为空
+						currentNode = currentNode.nextSibling.nextSibling;
+						var peoplelimit = currentNode.lastChild.nodeValue;
+						currentNode = currentNode.nextSibling.nextSibling;
+						var currentpeople = currentNode.lastChild.nodeValue;
+						//				alert(orderId+"  "+orderContent+"/n"+orderTheme+"/n"+orderStatus+"/n"+orderEndtime+"/n"+orderSellerid+"/n"+orderSellername+"/n"+orderSellericon);return;
+						//			alert(orderId+";");
+						//获取详细界面 首先传输值 再打开
+						if(!detailPage) {
+							detailPage = plus.webview.getWebviewById("html/order/detail-order.html");
+						}
+						//				alert(detailPage);
+						//传输值
+						//					mui.fire(detailPage, "order-detail", {
+						//						id: orderId,
+						//						content: orderContent,
+						//						theme: orderTheme,
+						//						status: orderStatus,
+						//						endTime: orderEndtime,
+						//						sellerId: orderSellerid,
+						//						sellerName: orderSellername,
+						//						sellerIcon: orderSellericon,
+						//						peoplelimit: peoplelimit,
+						//						currentpeople: currentpeople
+						//					});
+						mui.openWindow({
+							url: "html/order/detail-order.html",
+							id: "html/order/detail-order.html",
+							extras: {
+								orderid: orderId,
+								content: orderContent,
+								theme: orderTheme,
+								status: orderStatus,
+								endTime: orderEndtime,
+								sellerId: orderSellerid,
+								sellerName: orderSellername,
+								sellerIcon: orderSellericon,
+								peoplelimit: peoplelimit,
+								currentpeople: currentpeople
+							},
+							creatNew: true
+						});
+					}
+				}
+
+			);
+		</script>
+
+		<!--定时器-->
+		<script type="text/javascript" src="js/pro_js/notification.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+<style>
+		.mui-bar{
+			/*background: #fe5e55;*/
+			background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+		}
+		.mui-action-back {
+			color:#FFFFFF ;
+		}
+		.mui-title {
+			color:#FFFFFF ;
+		}
+	</style>
+	<body>
+		
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">修改密码</h1>
+		</header>
+		<br /><br /><br />
+		<h5>旧密码：</h5>
+				<div class="mui-input-row mui-password">
+					<input type="password" class="mui-input-password" placeholder="若包含字母，请注意区分大小写">
+				</div>
+	
+		<h5>新密码：</h5>
+				<div class="mui-input-row mui-password">
+					<input type="password" class="mui-input-password" placeholder="8-16位，至少包含数字/字母/字符2种组合">
+				</div>
+		<label >
+			<br />
+			 <button type="button" class="mui-btn mui-btn-primary mui-btn-block">确定</button>
+
+
+		<script type="text/javascript">
+			document.getElementsByClassName("addnewaddr")[0].addEventListener("tap",function(){
+				mui.openWindow({
+					url:"edit-addr.html",
+					id:"edit-addr.html",
+					extras:{
+						name:"1"
+					}
+				});
+			});
+		</script>
+		
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

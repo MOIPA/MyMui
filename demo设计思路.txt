@@ -1,0 +1,94 @@
+用户登陆：实现在了app.js里
+	用户成功登陆服务器返回uinfo需要用JSON.parse(data.info)转换，包含了aid,name,sex,com
+	再加上本地的loginstatus和password，account 共同存在localstorage 标识为user
+
+
+图片传输：不准用户传输重复图片
+
+每次都获取添加div的id作为图片标识id，在进入订单页面时，传递用户id（aid）作为添加div id
+提交时传递图片数据到服务器
+
+图片名称是由id+“img-”+dvid组成
+	id是<input id="ckjl.id" name="ckjl.id" value=429> 在进入这个页面时被改为当前登陆用户的aid
+	dvid  <div class="image-item " id="user-account" onclick="showActionSheet(this);"></div>
+	是其中的this.id 即user-account
+
+	设置user-accounts是为了添加图片后再这个位置append代码  具体见方法showImgDetail
+
+服务器处理：1，将所有上传图片 tmp_name复制到/home/tr/upload/（aid）目录下
+			但是这样无法客户端无法直接获取图片，我最后放在了/var/www/html/phpworkplace/mui/pic
+			并且返回存放图片的路径，这样的话意味着以后访问直接：固定ip+图片路径
+			获得返回的图片路径后就可以插入数据库了
+	    2，接收所有描述信息  存放到theorder表下，从而获取自增的当且订单的orderid
+	    3，将图片路径存放到orderpic目录下 字段：orderid 和路径
+		
+		具体的php操作：
+			restore-pic.php 负责接收传递的文件流，并且存放在
+				/var/www/html/phpworkplace/mui/pic
+				并且返回存放图片的路径数组（以json形式），
+				客户端接收到路径，aid（自己的id）数据内容 主题 等信息作为参数 加上图片数组
+				
+				以post形式发送到restore-info.php
+			restore-info.php 首先接收信息增加表一条数据，随后获取自增的orderid
+				再向遍历接收的图片路径数组 都插入orderpic表中
+
+
+目录必须 777 目录必须777 目录必须777 否则php的move_upload方法无效！！！！！！
+
+
+
+上传用户头像：同理
+	只不过进入上传头像时需要注册页面传递过来的aid
+
+	并且在布局上，让+图标点击后的图片覆盖自己，然后删除就重载当前页面
+			var thisobj = plus.webview.currentWebview();
+			thisobj.reload();
+	我也视图手动替换html代码，可以，但是再次添加图片时失效！怀疑时imgId或者imgKey 不确定 以后有空看 虽然不可能有空了……但是手动改不了很难受
+//修改图标为原来
+//	var html="";
+//	html+="<div id=\'user-accounts\' class=\"row image-list\"> ";
+//	html+="<div class=\"image-item \" id=\"user-account\" onclick=\"showActionSheet(this);\"></div> ";
+//	html+="</div>";
+////	html+="<a>123123</a>"
+////	alert(html);
+//	$("#Img"+imgId + imgkey).replaceWith(html);
+
+	简要步骤：在reg文件中 注册完后callback返回服务器给的aid，并且传输到 mui.open(...) setuicon页面
+	在这个页面中获取aid：plus.webveiw.CurrentWebview.aid; 
+	注意：这个aid在传过来之前必须是object类型 可以用new Number()转换，然后可以直接上传到服务器
+	aid和iconpath ，注意 上传的iconpath到php是数组，aid不用+’号，因为是数字，
+	所以PHP遍历iconpath，其实就数据就一条这个数组里，插入即可
+
+	用户上传头像花了5个小时……太久没写代码了 php js json忘记的差不多了，过段时间好好充个电
+							
+	
+
+访问示例：http://39.108.159.175/phpworkplace/mui/uiconpic/a.jpg
+
+
+
+
+
+订单详情：
+	响应的人群，订单信息。
+	解除或者完成订单的按钮，删除订单（未完成或者未结束的订单不可以删除）
+	应该可以查看自己发布的订单
+
+	查看订单跟随者：发送aid theorderid 从而获取来自订单的数据 v-for绑定显示
+	确认跟随：发送自己的id和点击的订单id 弹出对话框输入remark
+
+	难点：	1.传递所有数据，我直接把所有数据在main页面存放起来，不过不显示给用户
+		  点击详情的时候传递这些数据，到了详情页面获取这些数据，并且根据orderid获取订单图片
+		2.由于使用vue ，每个html代码都是自动生成的，不能简单的document.getElementbyId
+		  只能配合兄弟节点this.nextSibling.nextSibling.firstChild.nodevalue;
+		3.v-for的使用和模板的配合
+		4.为了美观最好把img变为div+background的形式不停调整，从v-bind:src到v-bind:style
+		  之前不会所以有点麻烦
+		5.软键盘弹出会挤压页面，按照网上的思路解决了，但是不完美，存在改进的地方。
+
+
+首页轮播：
+	v-for循环 接收图片地址，图片个数说明用于轮播下标
+	
+	首先用来展示以后的宣传之类的图片
+		服务器：准备好图片，手动输入图片到服务器，（暂时只返回图片src）

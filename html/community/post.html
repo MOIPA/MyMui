@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/loginStyle/reg_white.css" rel="stylesheet" />
+		<script src="../../js/jquery-2.1.0.js"></script>
+		<script src="../login/reg_animate.js"></script>
+	</head>
+	<style>
+		.mui-bar {
+			/*background: #fe5e55;*/
+			background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+		}
+		
+		.mui-action-back {
+			color: #FFFFFF;
+		}
+		
+		.mui-title {
+			color: #FFFFFF;
+		}
+	</style>
+
+	<body>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/utitls.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">群组</h1>
+		</header>
+		
+		<div class="mui-content" style="background: #FFFFFF;padding-bottom: 300px;">
+			<div class="login-wrap" style="margin-top: 30%;">
+				<h2>创建你的群组</h2>
+				<div class="form">
+					<input id='postthemebox' type="text" class="mui-input-clear mui-input" placeholder="讨论组主题">
+					<input id='postMessageBox' type="text" class="mui-input-clear mui-input" placeholder="第一条留言">
+					<button id='submitPost'>创建群组</button>
+				</div>
+			</div>
+		</div>
+		<script>
+			function createPost() {
+				var theme = document.getElementById("postthemebox").value;
+				var speakcontent = document.getElementById("postMessageBox").value;
+				var dat = getNowFormatDate();
+				var posttime = dat;
+				var speaktime = dat;
+				var speakeraid = new Number(JSON.parse(localStorage.getItem('user'))[0].aid);
+				//				alert(speakeraid);
+				if(theme == "" || speakcontent == "") {
+					plus.nativeUI.toast('请输入未填信息');
+					return;
+				}
+				mui.post('http://39.108.159.175/phpworkplace/mui/posts/createPost.php', {
+					posttheme: theme,
+					posttime: posttime,
+					speaktime: speaktime,
+					speakeraid: speakeraid,
+					speakcontent: speakcontent
+				}, function(data) {
+					plus.nativeUI.toast(data.trim());
+					plus.webview.currentWebview().opener().reload();
+					mui.back();
+				}, 'text');
+
+			}
+			//			createPost();
+			mui.plusReady(function() {
+				document.getElementById("submitPost").addEventListener('tap', function() {
+					createPost();
+				});
+			});
+
+			function getNowFormatDate() {
+				var now = new Date();
+
+				var year = now.getFullYear(); //年  
+				var month = now.getMonth() + 1; //月  
+				var day = now.getDate(); //日  
+
+				var hh = now.getHours(); //时  
+				var mm = now.getMinutes(); //分  
+				var ss = now.getSeconds(); //秒  
+
+				var clock = year + "-";
+
+				if(month < 10)
+					clock += "0";
+
+				clock += month + "-";
+
+				if(day < 10)
+					clock += "0";
+
+				clock += day + " ";
+
+				if(hh < 10)
+					clock += "0";
+
+				clock += hh + ":";
+				if(mm < 10) clock += '0';
+				clock += mm + ":";
+
+				if(ss < 10) clock += '0';
+				clock += ss;
+				return(clock);
+			}
+		</script>
+	</body>
+
+</html>

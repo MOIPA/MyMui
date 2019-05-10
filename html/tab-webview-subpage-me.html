@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>new webview</title>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<meta charset="UTF-8">
+		<title>Twitter Card</title>
+		<link rel="stylesheet" href="css/estilos.css">
+		<link href='https://fonts.googleapis.com/css?family=Quicksand:300,400,700' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
+		<link href="https://netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+		<link href="../css/me.css" rel="stylesheet" />
+		<script src="../js/jquery-2.1.0.js"></script>
+		<link href="../css/me-back-icon.css" rel="stylesheet" />
+		<script type="text/javascript" src="../js/vue.min.js"></script>
+	</head>
+	<style>
+		.mui-bar {
+			/*background: #fe5e55;*/
+			/*background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);*/
+			background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+		}
+		
+		.mui-action-back {
+			color: #FFFFFF;
+		}
+		
+		.mui-title {
+			color: #FFFFFF;
+		}
+	</style>
+
+	<body style="background: #dde1e2;">
+
+		<!--end-->
+
+		<header class="mui-bar mui-bar-nav" style="border-radius: 0px;">
+			<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+			<h1 class="mui-title">我的buy</h1>
+			<p class="mui-pull-right" style="margin-right: 10px;margin-top: 5px;">
+				<!--<a id="login">登陆</a>-->
+
+			</p>
+		</header>
+		<div class="mui-content" style="background: #dde1e2;margin-top: 50px;">
+			<div class="container">
+				<header style="position: fixed;top: 40px;z-index: 999;" id="uinfo">
+					<div class="bio">
+						<!--<img src="../images/user_icon_bg.png" alt="background" class="bg" style="height: 170px;width: 100%;border-radius: 0px;">-->
+						<div style="height: 170px;width: 100%;border-radius: 0px;background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);">
+							<span class="iconfont icon-meishi" style="font-size: 150px;color: #FFFFFF;margin-left: 25%;"></span>
+							<div style="height: 10px;width: 400px;"></div>
+						</div>
+						<div class="desc">
+							<h3>{{account}}</h3>
+							<p>{{email}}</p>
+							<p>{{identity}}</p>
+						</div>
+					</div>
+
+					<div class="avatarcontainer">
+						<img v-bind:src="uicon" class="avatar" style="width: 70px;height: 70px;margin-top: -20px;">
+						<!--<div class="hover">-->
+						<!--浮在上面的-->
+						<!--<div class="icon-twitter"></div>-->
+						<!--</div>-->
+					</div>
+
+				</header>
+
+				<div class="content" style="color: #7d858b;margin-top: 140px;">
+					<p style=" z-index: 1;background: #dde1e2;">
+						<ul class="mui-table-view" style="background: #dde1e2;">
+							<li class="mui-table-view-cell">
+								<a class="mui-navigate-right mypost">
+									<img />我的帖子
+								</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a class="mui-navigate-right manageaddr">
+									管理收货地址
+								</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a class="mui-navigate-right myorder">
+									我的订单
+								</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a class="mui-navigate-right">
+									我的优惠券
+								</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a class="mui-navigate-right myfavourite">
+									我的收藏
+								</a>
+							</li>
+						</ul>
+
+						<ul class="mui-table-view" style="margin-top: 20px;background: #dde1e2;">
+							<li class="mui-table-view-cell">
+								<a class="mui-navigate-right contact">
+									联系客服
+								</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a class="mui-navigate-right feedbackus">
+									意见反馈
+								</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a class="mui-navigate-right changeinfo">
+									修改账户信息
+								</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a class="mui-navigate-right joinus">
+									加入我们
+								</a>
+							</li>
+
+						</ul>
+					</p>
+
+					<div class="follow" style="background: #fe5e55;">
+						<div></div>
+						<input type="button" class="mui-btn-blue" value="登陆" id="login" style="border-radius: 10px;background: #fe5e55;color: #ffffff;border:0px;font-size: 18px;" />
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<script>
+			var user = JSON.parse(localStorage.getItem('user'));
+			window.addEventListener('changeLoginButton', function(event) {
+				//								alert(event.detail.btnContent);
+				document.getElementById("login").value = "注销";
+				user[0].loginstatus = 'online';
+				getUinfo();
+			});
+
+			var uinfo = new Vue({
+				el: "#uinfo",
+				data: {
+					account: "",
+					email: "",
+					uicon: "",
+					identity: ""
+				}
+			});
+
+			function getUinfo() {
+				//				alert("do");
+				user = JSON.parse(localStorage.getItem('user'));
+				var aid = user[0].aid;
+				mui.post('http://39.108.159.175/phpworkplace/mui/login/getUserInfo.php', {
+					aid: aid
+				}, function(data) {
+					//					alert(data);
+					uinfo.account = data[0].account;
+					uinfo.email = data[0].email;
+					uinfo.identity = data[0].identity;
+					uinfo.uicon = "http://39.108.159.175/phpworkplace/mui/uiconpic/" + data[0].uiconsrc;
+//					alert(uinfo.account);
+				}, 'json');
+			}
+			mui.plusReady(function() {
+				getUinfo();
+			});
+			//每次检查是否已经登陆
+
+			//			user[0].loginstatus="online";
+			//					localStorage.setItem('user', JSON.stringify(user));
+			if(user != null && user[0].loginstatus == "online") {
+				//logined
+				//				alert("注销");
+				document.getElementById("login").value = '注销';
+			} else {
+				if(user == null) {
+					var logininfo = {};
+					logininfo.loginstatus = "offline";
+					user = [];
+					user.push(logininfo);
+					localStorage.setItem("user", JSON.stringify(user));
+				}
+				mui.plusReady(function() {
+					plus.nativeUI.toast("请登陆");
+				});
+			}
+
+			document.getElementsByClassName("mypost")[0].addEventListener("tap", function() {
+				mui.openWindow({
+					url: "my_buy/my-post.html",
+					id: "my_buy/my-post.html",
+					extras: {
+						name: "1"
+					}
+				});
+			});
+			document.getElementsByClassName("manageaddr")[0].addEventListener("tap", function() {
+				mui.openWindow({
+					url: "my_buy/manage-receive-addr.html",
+					id: "my_buy/manage-receive-addr.html",
+					extras: {
+						name: "1"
+					},
+					creatNew: true
+				});
+			});
+			document.getElementsByClassName("myorder")[0].addEventListener("tap", function() {
+				mui.openWindow({
+					url: "my_buy/my-order.html",
+					id: "my_buy/my-order.html",
+					extras: {
+						name: "1"
+					}
+				});
+			});
+			document.getElementsByClassName("myfavourite")[0].addEventListener("tap", function() {
+				mui.openWindow({
+					url: "my_buy/my-favourite.html",
+					id: "my_buy/my-favourite.html",
+					extras: {
+						name: "1"
+					}
+				});
+			});
+			document.getElementsByClassName("contact")[0].addEventListener("tap", function() {
+				mui.openWindow({
+					url: "my_buy/contact-chat.html",
+					id: "my_buy/contact-chat.html"
+				});
+			});
+			document.getElementsByClassName("joinus")[0].addEventListener("tap", function() {
+				mui.openWindow({
+					url: "my_buy/join-us.html",
+					id: "my_buy/join-us.html"
+				});
+			});
+			document.getElementsByClassName("feedbackus")[0].addEventListener("tap", function() {
+				mui.openWindow({
+					url: "my_buy/feed-back.html",
+					id: "my_buy/feed-back.html"
+				});
+			});
+			document.getElementsByClassName("changeinfo")[0].addEventListener("tap", function() {
+				mui.openWindow({
+					url: "my_buy/change-info.html",
+					id: "my_buy/change-info.html"
+				});
+			});
+			document.getElementById("login").addEventListener("tap", function() {
+
+				//				alert(document.getElementById("login").innerHTML);
+				//				alert(document.getElementById("login").value);
+				if(user[0].loginstatus == 'online') {
+					//注销的网络操作********************
+
+					//*********************************
+					//本地注销
+					user[0].loginstatus = 'offline';
+					localStorage.setItem('user', JSON.stringify(user));
+					document.getElementById("login").value = "登陆";
+				} else {
+					mui.openWindow({
+						url: "login/login.html",
+						id: "login/login.html",
+						createNew: false
+					});
+				}
+
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,155 @@
+{
+  "html/login/unlock.html": {
+    "href": "html/login/unlock.html",
+    "resources": [],
+    "refer": [],
+    "priority": 0
+  },
+  "html/login/forget_password.html": {
+    "href": "html/login/forget_password.html",
+    "resources": [],
+    "priority": 1
+  },
+  "html/login/set_uicon.html": {
+    "href": "html/login/set_uicon.html",
+    "resources": [],
+    "priority": 2
+  },
+  "html/login/create_com.html": {
+    "href": "html/login/create_com.html",
+    "resources": [],
+    "refer": [],
+    "priority": 3
+  },
+  "html/login/reg.html": {
+    "href": "html/login/reg.html",
+    "resources": [],
+    "refer": [],
+    "priority": 2
+  },
+  "html/login/login.html": {
+    "href": "html/login/login.html",
+    "resources": [],
+    "refer": [],
+    "priority": 0
+  },
+  "html/login/login_choose_frame.html": {
+    "href": "html/login/login_choose_frame.html",
+    "resources": [],
+    "refer": [],
+    "priority": 0
+  },
+  "yindao.html": {
+    "href": "yindao.html",
+    "resources": [],
+    "refer": [],
+    "priority": 0
+  },
+  "html/my_buy/my-post.html": {
+    "href": "html/my_buy/my-post.html",
+    "resources": [],
+    "priority": 1
+  },
+  "html/my_buy/join-us.html": {
+    "href": "html/my_buy/join-us.html",
+    "resources": [],
+    "priority": 2
+  },
+  "html/my_buy/edit-addr.html": {
+    "href": "html/my_buy/edit-addr.html",
+    "resources": [],
+    "priority": 3
+  },
+  "html/my_buy/change-info.html": {
+    "href": "html/my_buy/change-info.html",
+    "resources": [],
+    "refer": [],
+    "priority": 4
+  },
+  "html/my_buy/my-order.html": {
+    "href": "html/my_buy/my-order.html",
+    "resources": [],
+    "priority": 5
+  },
+  "html/my_buy/contact-chat.html": {
+    "href": "html/my_buy/contact-chat.html",
+    "resources": [],
+    "priority": 6
+  },
+  "html/my_buy/feed-back.html": {
+    "href": "html/my_buy/feed-back.html",
+    "resources": [],
+    "priority": 8
+  },
+  "html/my_buy/manage-receive-addr.html": {
+    "href": "html/my_buy/manage-receive-addr.html",
+    "resources": [],
+    "refer": [],
+    "priority": 9
+  },
+  "html/my_buy/my-favourite.html": {
+    "href": "html/my_buy/my-favourite.html",
+    "resources": [],
+    "priority": 10
+  },
+  "html/news/detail.html": {
+    "href": "html/news/detail.html",
+    "resources": [],
+    "priority": 2
+  },
+  "html/tab-webview-subpage-chat.html": {
+    "href": "html/tab-webview-subpage-chat.html",
+    "resources": [],
+    "refer": [],
+    "priority": 2
+  },
+  "html/community/post.html": {
+    "href": "html/community/post.html",
+    "resources": [],
+    "priority": 3
+  },
+  "html/community/follow-post.html": {
+    "href": "html/community/follow-post.html",
+    "resources": [],
+    "priority": 4
+  },
+  "html/tab-webview-subpage-community.html": {
+    "href": "html/tab-webview-subpage-community.html",
+    "resources": [],
+    "refer": [],
+    "priority": 3
+  },
+  "html/order/manage-order.html": {
+    "href": "html/order/manage-order.html",
+    "resources": [],
+    "priority": 4
+  },
+  "html/order/post-order.html": {
+    "href": "html/order/post-order.html",
+    "resources": [],
+    "priority": 5
+  },
+  "html/order/scan_barcode/barcode_scan.html": {
+    "href": "html/order/scan_barcode/barcode_scan.html",
+    "resources": [],
+    "priority": 6
+  },
+  "html/order/scan_barcode/pay.html": {
+    "href": "html/order/scan_barcode/pay.html",
+    "resources": [],
+    "refer": [],
+    "priority": 6
+  },
+  "html/order/detail-order.html": {
+    "href": "html/order/detail-order.html",
+    "resources": [],
+    "refer": [],
+    "priority": 6
+  },
+  "main.html": {
+    "href": "main.html",
+    "resources": [],
+    "refer": [],
+    "priority": 0
+  }
+}

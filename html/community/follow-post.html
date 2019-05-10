@@ -1,0 +1,281 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="follow_post.css" rel="stylesheet" />
+	</head>
+	<style>
+		.chat-history-date {
+			display: block;
+			padding-top: 5px;
+			text-align: center;
+			font-size: 12px;
+		}
+		
+		.chat-receiver,
+		.chat-sender {
+			margin: 5px;
+			clear: both;
+		}
+		
+		.chat-avatar img {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+		}
+		
+		.chat-receiver .chat-avatar {
+			float: left;
+		}
+		
+		.chat-sender .chat-avatar {
+			float: right;
+		}
+		
+		.chat-content {
+			position: relative;
+			max-width: 60%;
+			min-height: 20px;
+			margin: 0 10px 10px 10px;
+			padding: 10px;
+			font-size: 15px;
+			border-radius: 7px;
+		}
+		
+		.chat-content img {
+			width: 100%;
+		}
+		
+		.chat-receiver .chat-content {
+			float: left;
+			color: #383838;
+			background-color: #ffffff;
+		}
+		
+		.chat-sender .chat-content {
+			float: right;
+			color: #ffffff;
+			background-color: #15b5e9;
+		}
+		
+		.chat-triangle {
+			position: absolute;
+			top: 6px;
+			width: 0px;
+			height: 0px;
+			border-width: 8px;
+			border-style: solid;
+		}
+		
+		.chat-receiver .chat-triangle {
+			left: -16px;
+			border-color: transparent #f5f5f5 transparent transparent;
+		}
+		
+		.chat-sender .chat-triangle {
+			right: -16px;
+			border-color: transparent transparent transparent #15b5e9;
+		}
+	</style>
+	<style>
+		.mui-bar{
+			/*background: #fe5e55;*/
+			background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+		}
+		.mui-action-back {
+			color:#FFFFFF ;
+		}
+		.mui-title {
+			color:#FFFFFF ;
+		}
+	</style>
+
+	<body>
+		<script src="../../js/vue.min.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/utitls.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="title">主题</h1>
+		</header>
+		<div class="mui-content" style="margin-bottom: 40px;background: #efeff4;margin-top: 10px;">
+			<div id="mycontentlist" style="background: #efeff4;">
+				<div v-for="item in items" v-bind:style="item.fl">
+					<!--消息最后历史时间-->
+					<!--<p class="chat-history-date">{{item.speaktime}}</p>-->
+					<!--接收文本消息-->
+					<!--<div class="chat-receiver">
+						<div class="chat-avatar">
+							<img v-bind:src="'http://39.108.159.175/phpworkplace/mui/uiconpic/'+item.picname">
+						</div>
+						<div class="chat-content">
+							<div class="chat-triangle"></div>
+							<span>1111111111111111111111111111111111111111111111111111111111111111111111111111111</span>
+						</div>
+					</div>-->
+					<!--消息最后历史时间-->
+					<!--<p style="width: 100%;height:20px;float: none;background: #008000;">{{item.speaktime}}</p>-->
+					<!--接收文本消息-->
+					<div v-bind:class="item.posi">
+						<div class="chat-avatar" style="margin-top: 10px;">
+							<img v-bind:src="'http://39.108.159.175/phpworkplace/mui/uiconpic/'+item.picname">
+						</div>
+
+						<div style="margin-top: -10px;width: 100%;" >
+							<p style="margin-bottom: -20px;">{{item.account}}</p>
+							<p style="text-align: center;margin-top: 0px;">&nbsp;</p>
+						</div>
+						<div class="chat-content" style="margin-top: -10px;">
+							<div class="chat-triangle"></div>
+							<span><div style="word-wrap: break-word;word-break: break-all;">{{item.speakcontent}}</div></span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<footer>
+			<div class="footer-left">
+				<i id='msg-image' class="mui-icon mui-icon-camera" style="font-size: 28px;"></i>
+			</div>
+			<div class="footer-center">
+				<textarea id='msg-text' type="text" class='input-text'></textarea>
+				<button id='msg-sound' type="button" class='input-sound' style="display: none;">按住说话</button>
+			</div>
+			<label for="" class="footer-right">
+				<img src="../../images/send.png" style="height: 30px;width: 30px;" id="send"/>
+			</label>
+		</footer>
+		<script>
+			var laid = JSON.parse(localStorage.getItem('user'))[0].aid;
+			var dataBox = document.getElementById("msg-text");
+			var data = "";
+			var time = "";
+
+			var contentlist = new Vue({
+				el: "#mycontentlist",
+				data: {
+					items: []
+				}
+			});
+
+			function getNowFormatDate() {
+				var now = new Date();
+
+				var year = now.getFullYear(); //年  
+				var month = now.getMonth() + 1; //月  
+				var day = now.getDate(); //日  
+
+				var hh = now.getHours(); //时  
+				var mm = now.getMinutes(); //分  
+				var ss = now.getSeconds(); //秒  
+
+				var clock = year + "-";
+
+				if(month < 10)
+					clock += "0";
+
+				clock += month + "-";
+
+				if(day < 10)
+					clock += "0";
+
+				clock += day + " ";
+
+				if(hh < 10)
+					clock += "0";
+
+				clock += hh + ":";
+				if(mm < 10) clock += '0';
+				clock += mm + ":";
+
+				if(ss < 10) clock += '0';
+				clock += ss;
+				return(clock);
+			}
+
+			function getUserAndComment(id) {
+				mui.post('http://39.108.159.175/phpworkplace/mui/posts/getAllUserAndComments.php', {
+					postid: id
+				}, function(data) {
+					var list = new Array();
+					var posi = "mui-media-object mui-pull-left";
+
+					for(var i = 0; i < data.length; i++) {
+						if(laid == data[i].aid) {
+							posi = "chat-sender";
+							fl = "text-align: right;"
+						} else {
+							posi = "chat-receiver";
+							fl = "text-align: left;";
+						}
+						list.push({
+							speaktime: dateUtils.format(data[i].speaktime),
+							picname: data[i].uiconsrc,
+							speakcontent: data[i].speakcontent,
+							account: data[i].account,
+							posi: posi,
+							fl:fl
+						});
+					}
+					//					alert(list[0].picname);
+					contentlist.items = list;
+
+				}, 'json');
+				//				plus.nativeUI.toast("doing");
+			}
+
+			function refreshData() {
+				setInterval(getUserAndComment(plus.webview.currentWebview().postid), 3000);
+			}
+
+			function sendData(id) {
+				//				alert(id);
+				data = dataBox.value;
+				time = getNowFormatDate();
+				mui.post('http://39.108.159.175/phpworkplace/mui/posts/setComment.php', {
+					postid: id,
+					speakeraid: new Number(laid),
+					speaktime: time,
+					speakcontent: data
+				}, function(data) {
+					plus.nativeUI.toast(data.trim());
+					dataBox.value = "";
+					getUserAndComment(id);
+				}, 'text');
+
+			}
+			//get varible
+			mui.plusReady(function() {
+
+				var theme = plus.webview.currentWebview().theme;
+				var id = plus.webview.currentWebview().postid;
+				var time = plus.webview.currentWebview().time;
+
+				//bind listener
+				document.getElementById("send").addEventListener('tap', function() {
+					sendData(id);
+				});
+				//change title
+				document.getElementById("title").innerText = theme; //change my title
+				getUserAndComment(id);
+				//				alert(id+" "+typeof id+" "+time);	
+				var tsr = setInterval(refreshData, 3000);
+				//				rewrite back function
+				var old_back = mui.back;
+				mui.back = function() {
+					clearInterval(tsr);
+					old_back();
+				};
+			});
+		</script>
+	</body>
+
+</html>

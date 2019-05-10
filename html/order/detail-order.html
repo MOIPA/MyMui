@@ -1,0 +1,990 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/mui.poppicker.css" rel="stylesheet" />
+		<link href="../../css/mui.picker.css" rel="stylesheet" />
+		<style>
+			.mui-card .mui-control-content {
+				padding: 10px;
+			}
+			
+			.mui-control-content {
+				height: 150px;
+			}
+		</style>
+	</head>
+	<style>
+		.mui-bar {
+			/*background: #fe5e55;*/
+			background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+		}
+		
+		.mui-action-back {
+			color: #FFFFFF;
+		}
+		
+		.mui-title {
+			color: #FFFFFF;
+		}
+		
+		.mui-segmented-control .mui-control-item {
+			color: #000000;
+			border-color: #ffffff;
+			border-left: 0px solid #ffffff;
+			border-bottom: 1px solid #ffffff;
+			background-color: #FFFFFF;
+		}
+		
+		.mui-segmented-control-positive {
+			/*background-color: ;*/
+		}
+		
+		.mui-segmented-control .mui-control-item.mui-active {
+			color: #EC971F;
+			background-color: #ffffff;
+			border-bottom: 1px solid #EC971F;
+			/*border-radius: 30px;*/
+		}
+	</style>
+
+	<style type="text/css">
+		.mui-preview-image.mui-fullscreen {
+			position: fixed;
+			z-index: 20;
+			background-color: #000;
+		}
+		
+		.mui-preview-header,
+		.mui-preview-footer {
+			position: absolute;
+			width: 100%;
+			left: 0;
+			z-index: 10;
+		}
+		
+		.mui-preview-header {
+			height: 44px;
+			top: 0;
+		}
+		
+		.mui-preview-footer {
+			height: 50px;
+			bottom: 0px;
+		}
+		
+		.mui-preview-header .mui-preview-indicator {
+			display: block;
+			line-height: 25px;
+			color: #fff;
+			text-align: center;
+			margin: 15px auto 4;
+			width: 70px;
+			background-color: rgba(0, 0, 0, 0.4);
+			border-radius: 12px;
+			font-size: 16px;
+		}
+		
+		.mui-preview-image {
+			display: none;
+			-webkit-animation-duration: 0.5s;
+			animation-duration: 0.5s;
+			-webkit-animation-fill-mode: both;
+			animation-fill-mode: both;
+		}
+		
+		.mui-preview-image.mui-preview-in {
+			-webkit-animation-name: fadeIn;
+			animation-name: fadeIn;
+		}
+		
+		.mui-preview-image.mui-preview-out {
+			background: none;
+			-webkit-animation-name: fadeOut;
+			animation-name: fadeOut;
+		}
+		
+		.mui-preview-image.mui-preview-out .mui-preview-header,
+		.mui-preview-image.mui-preview-out .mui-preview-footer {
+			display: none;
+		}
+		
+		.mui-zoom-scroller {
+			position: absolute;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-align: center;
+			-webkit-align-items: center;
+			align-items: center;
+			-webkit-box-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			-webkit-backface-visibility: hidden;
+		}
+		
+		.mui-zoom {
+			-webkit-transform-style: preserve-3d;
+			transform-style: preserve-3d;
+		}
+		
+		.mui-slider .mui-slider-group .mui-slider-item img {
+			width: auto;
+			height: auto;
+			max-width: 100%;
+			max-height: 100%;
+		}
+		
+		.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+			width: 100%;
+		}
+		
+		.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+			display: inline-table;
+		}
+		
+		.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+			display: table-cell;
+			vertical-align: middle;
+		}
+		
+		.mui-preview-loading {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			display: none;
+		}
+		
+		.mui-preview-loading.mui-active {
+			display: block;
+		}
+		
+		.mui-preview-loading .mui-spinner-white {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-left: -25px;
+			margin-top: -25px;
+			height: 50px;
+			width: 50px;
+		}
+		
+		.mui-preview-image img.mui-transitioning {
+			-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+			transition: transform 0.5s ease, opacity 0.5s ease;
+		}
+		
+		@-webkit-keyframes fadeIn {
+			0% {
+				opacity: 0;
+			}
+			100% {
+				opacity: 1;
+			}
+		}
+		
+		@keyframes fadeIn {
+			0% {
+				opacity: 0;
+			}
+			100% {
+				opacity: 1;
+			}
+		}
+		
+		@-webkit-keyframes fadeOut {
+			0% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+		
+		@keyframes fadeOut {
+			0% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+		
+		p img {
+			max-width: 100%;
+			height: auto;
+		}
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">订单详情</h1>
+		</header>
+		<div class="mui-content">
+			<div style="height: 5px;width: 100%;background-color: #FFFFFF;"></div>
+			<div style="padding: 0px 0px;">
+				<div id="segmentedControl" class="mui-segmented-control" style="border: 0px;">
+					<a class="mui-control-item mui-active" href="#item1">订单介绍</a>
+					<a class="mui-control-item" href="#item2">跟团信息</a>
+					<a class="mui-control-item" href="#item3">订单图片</a>
+					<!--<a class="mui-control-item" href="#item3">全部公文</a>-->
+				</div>
+			</div>
+			<div>
+				<div id="item1" class="mui-control-content mui-active">
+					<!--<div id="scroll" class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+							<ul class="mui-table-view">-->
+					<div class="mui-card-header mui-card-media">
+						<img id="icon" />
+						<div class="mui-media-body" id="name">
+							商家
+							<p id="end_time" style="color: #5BAEF5;">截至到 </p>
+						</div>
+					</div>
+					<div class="mui-content" style="margin-left: 30px;margin-right: 30px;">
+						<br />
+						<h5 id="theme" style="margin-left: 30%;">theme</h5>
+						<br />
+						<h5 id="order-desc" style="margin-left: 10%;margin-bottom: 10px;">订单描述</h5>
+						<textarea id="content" style="background: #;height: 200px;" readonly="readonly" style="border: 0px;">content</textarea>
+						<button type="button" id="changeOrderStatus" class="mui-btn-danger" style="margin-left: 30%;">修改状态</button>
+						<br />
+						<button type="button" id="passOrder" class="mui-btn-green" style="margin-left: 30%;">通过审核</button>
+					</div>
+					<!--</ul>
+						</div>
+					</div>-->
+				</div>
+				<div id="item2" class="mui-control-content">
+					<!--<ul class="mui-table-view">
+						<li id="follower" style="background-color:#efeff4;" class="mui-table-view-cell">-->
+					<div id="follower">
+						<!--<div id="follower" style="background-color:#efeff4;">-->
+						<p style="margin-left: 4%;margin-top: 10px;">以下用户已经加入此订单：</p>
+						<!--<div style="height: 2px;width: 100%;background: #E1673E;margin-bottom: 10px;"></div>-->
+						<div v-for="item in items">
+							<ul class="mui-table-view " style="margin-left: 2%;margin-right: 2%;border-radius: 3px;">
+								<li class="mui-table-view-cell mui-media ">
+									<div style="height: 30px;width: 30px;border-radius: 30px;margin-left:20px;float: none;background-color: #FFFFFF; background: no-repeat center center;background-size: contain;" v-bind:style="{background:item.bk}"></div>
+									<!--<img v-bind:src="'http://39.108.159.175/phpworkplace/mui/uiconpic/'+item.icon" style="margin-left:20px;width: 7%;float: left;border-radius: 250px;" />-->
+									<div style="height: 30px;width: 100%;float: none;margin-left: 60px;margin-top: -23px;">
+										<p style="font-size: 18px;float: left;">{{item.name}}</p>
+										<button type="button" class="urstatus-class" id="urstatus" v-bind:name="item.aid" style="margin-top: -5px;margin-left: 10%;border-radius: 5px;color: #FFFFFF;background: #E1673E;border: 0px;">{{item.urstatus}}</button>
+										<button style="font-size: 14px;margin-left: 10%;margin-top: -5px;border: 0px;color: #007AFF;border-radius: 10px;" class="show_user_info">详情</button>
+										<p style="font-size: 18px;display: none;">留言：{{item.remark}}<br/>收货人：{{item.realName}}<br/>地址：{{item.address}}<br/>联系方式：{{item.phone}}</p>
+									</div>
+								</li>
+							</ul>
+
+						</div>
+					</div>
+					<!--</div>-->
+					<!--</li>
+					</ul>-->
+				</div>
+				<div id="item3" class="mui-control-content show_pic">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<ul class="mui-table-view mui-grid-view" id="pic-table">
+								<li class="mui-table-view-cell mui-media mui-col-xs-6" v-for="item in items">
+									<!--<a href="#">-->
+									<img v-bind:src="'http://39.108.159.175/phpworkplace/mui/pic/'+item.src" data-preview-src="" data-preview-group="1" width="60%" />
+									<!--<div class="mui-media-body">幸福就是可以一起睡觉</div></a>-->
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<button type="button" id="commit" class="mui-btn-outlined mui-btn mui-btn-block" style="bottom: 0px; position: absolute;width: 80%;margin-left: 10%;margin-bottom: 10%;color: #FFFFFF;background: #fe5e55;border-radius: 10px;">确定跟单</button>
+			<button type="button" id="delete" class="mui-btn-outlined mui-btn mui-btn-block" style="bottom: 0px; position: absolute;width: 80%;margin-left: 10%;margin-bottom: 10%;color: #FFFFFF;background: #fe5e55;border-radius: 10px;display: none;">删除订单</button>
+
+			<!--<table id="pic-table" border="0" cellspacing="" cellpadding="">
+				<tr v-for="item in items">
+					<!--<td>{{item.src}}</td>-->
+			<!--<td><img v-bind:src="'http://39.108.159.175/phpworkplace/mui/pic/'+item.src" width="60%"/></td>-->
+			<!--</tr>-->
+			<!--</table>-->
+
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/vue.min.js"></script>
+		<script src="../../js/jquery-2.1.0.js"></script>
+		<script src="../../js/mui.poppicker.js"></script>
+		<script src="../../js/mui.picker.js"></script>
+		<script src="../../js/mui.zoom.js"></script>
+		<script src="../../js/mui.previewimage.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<script type="text/javascript">
+			var btnArray = ['否', '是'];
+			//虽然放在这很糟糕 但是管用 而且马上结束了 用来显示是否显示用户点击详情按钮
+			function showFollowerClickDetail(iden, laid, sellerId) {
+				//							alert("cant see:" +iden+":"+laid+":"+sellerId);
+				if(iden != "管理员" && laid != sellerId) {
+					var details = document.getElementsByClassName('show_user_info');
+					for(var i = 0; i < details.length; i++) {
+						//								details[i].display = "none";
+						details[i].innerText = "";
+					}
+				}
+			}
+			//					plus.webview.currentWebview().reload();
+			$(document).ready(function() {
+				//解决软键盘挤压页面
+				//获取原始窗口的高度
+				//			var originalHeight = document.documentElement.clientHeight || document.body.clientHeight;
+				//
+				//			window.onresize = function() {
+				//
+				//				//软键盘弹起与隐藏  都会引起窗口的高度发生变化
+				//				var resizeHeight = document.documentElement.clientHeight || document.body.clientHeight;
+				//
+				//				if(resizeHeight * 1 < originalHeight * 1) { //resizeHeight<originalHeight证明窗口被挤压了
+				//
+				//					plus.webview.currentWebview().setStyle({
+				//						height: originalHeight
+				//					});
+				//
+				//				}
+				//			}
+
+				mui.plusReady(function() {
+
+					//					var old_back = mui.back;
+					//					mui.back=function(){
+					//						plus.webview.currentWebview().close('none');
+					//						old_back();
+					//					};
+
+					//顶部滑动选项卡设置
+					(function($) {
+						$('#scroll').scroll({
+							indicators: true //是否显示滚动条
+						});
+						var segmentedControl = document.getElementById('segmentedControl');
+						$('.mui-input-group').on('change', 'input', function() {
+							if(this.checked) {
+								var styleEl = document.querySelector('input[name="style"]:checked');
+								var colorEl = document.querySelector('input[name="color"]:checked');
+								if(styleEl && colorEl) {
+									var style = styleEl.value;
+									var color = colorEl.value;
+									segmentedControl.className = 'mui-segmented-control' + (style ? (' mui-segmented-control-' + style) : '') + ' mui-segmented-control-' + color;
+								}
+							}
+						});
+					})(mui);
+					//			var list = new Vue({
+					//				el:"#pic-table",
+					//				data:{
+					//					items:[]
+					//				}
+					//			});
+					var list = new Vue({
+						el: "#pic-table",
+						data: {
+							items: []
+						}
+					});
+					var followers = new Vue({
+						el: "#follower",
+						data: {
+							items: []
+						}
+					});
+					//					window.addEventListener('order-detail', function(event) {
+
+					//设置所有按钮可点击
+					var buttons = document.getElementsByClassName('urstatus-class');
+					//					alert("loading");
+					for(var i = 0; i < buttons.length; i++) {
+						buttons[i].disabled = false;
+					}
+					var curWebView = plus.webview.currentWebview();
+					document.getElementById("commit").style.display = "block";
+					//					var waiting = plus.nativeUI.showWaiting();
+					var orderId = new Number(curWebView.orderid);
+					var content = curWebView.content;
+					var theme = curWebView.theme;
+					var status = curWebView.status;
+					var endTime = curWebView.endTime;
+					var sellerId = curWebView.sellerId;
+					var sellerName = curWebView.sellerName;
+					var sellerIcon = curWebView.sellerIcon;
+					//如果是活动可以获取人数限制
+					var peoplelimit = curWebView.peoplelimit;
+					var currentpeople = curWebView.currentpeople;
+
+					var getFollowerUrl = "";
+					//						并且应该改变界面显示
+					if(status == "活动" || status == "活动已结束") {
+						getFollowerUrl = 'http://39.108.159.175/phpworkplace/mui/order/getActivityFollower.php';
+						document.getElementById("order-desc").innerText = "活动描述-----当前人数：" + currentpeople + " /" + peoplelimit;
+					} else {
+						getFollowerUrl = 'http://39.108.159.175/phpworkplace/mui/order/getFollower.php';
+					}
+					//显示基础数据
+					var time_tab = document.getElementById("end_time");
+					var seller_name = document.getElementById("name");
+					var seller_icon = document.getElementById("icon");
+					var tab_content = document.getElementById("content");
+					var tab_theme = document.getElementById("theme");
+
+					//				alert(seller_icon.src);
+					seller_icon.src = "http://39.108.159.175/phpworkplace/mui/uiconpic/" + sellerIcon;
+					seller_name.firstChild.nodeValue = "商家：" + sellerName;
+					time_tab.innerHTML = "截止到：" + endTime + "     订单状态：" + status;
+					tab_content.innerHTML = content;
+					tab_theme.innerHTML = "主题：" + theme;
+					//				alert(orderId);return;
+					//				alert(orderId+"  "+content+"  "+theme+"  "+status+"  "+endTime+"  "+sellerId+"  "+sellerName+"  "+sellerIcon);
+					//接收完传输过来的数据
+					//				展示在页面
+					//				1.展示商家产品图片列表
+					//				a.根据orderid接收图片路径json
+					//					alert(orderId+"___"+content+"___"+theme+"___"+status+"___"+endTime+"___"+sellerId+"___"+sellerName+"___"+sellerId+"___"+sellerIcon+"___"+peoplelimit+"___");
+
+					mui.post('http://39.108.159.175/phpworkplace/mui/order/getOrderPic.php', {
+						orderid: orderId
+					}, function(data) {
+						//get  json
+						var paths = [];
+						for(var i = 0; i < data.length; i++) {
+							//						paths[i]=data[i].orderpicsrc;
+							paths.push({
+								src: data[i].orderpicsrc
+							});
+							//						list.items.push({src:data[i].orderpicsrc});
+						}
+						console.log("data.length" + data.length);
+						console.log("paths.length" + paths.length);
+						//					list.items.concat(paths);
+						list.items = paths;
+
+					}, 'json');
+
+					//					2.显示跟踪订单的用户们
+					mui.post(getFollowerUrl, {
+						orderid: orderId
+					}, function(data) {
+						//					alert(orderId+"   "+data);
+						var items = [];
+						if(data != null) {
+							for(var i = 0; i < data.length; i++) {
+								items.push({
+									name: data[i].account,
+									realName: data[i].name,
+									sex: data[i].sex,
+									phone: data[i].phone,
+									address: data[i].address,
+									aid: data[i].aid,
+									urstatus: data[i].urstatus,
+									icon: data[i].uiconsrc,
+									remark: "remark：" + data[i].remark,
+									bk: "url(\"http://39.108.159.175/phpworkplace/mui/uiconpic/" + data[i].uiconsrc + "\")"
+								});
+								//								alert(data[i].account+" "+data[i].uiconsrc);
+							}
+						}
+						followers.items = items;
+						//是否给普通用户看到
+
+						//						waiting.close();
+
+					}, 'json');
+
+					/**
+					 * 点击跟单后的操作
+					 * orderId 用户点击的订单id
+					 * aid 用户id
+					 * e.value 用户输入的remark
+					 */
+					var user = JSON.parse(localStorage.getItem('user'))[0];
+					var iden = user.identity;
+					var myName = user.account;
+					var laid = user.aid;
+					var btnPassOrder = document.getElementById("passOrder");
+					var btnChangeOrderStatus = document.getElementById("changeOrderStatus");
+					var wobj = plus.webview.getWebviewById("HBuilder"); //注意 HBuilder 是   1.html 的 ID  你如果1.html 有ID   要替换掉HBuilder， 
+					//用户点击跟团信息个人条目的事件
+					mui('#follower').on('tap', '.show_user_info', function() {
+						var info = this.nextSibling.nextSibling.innerText;
+						//只有管理员和卖家可以看到买家信息
+						if(iden == "管理员" || laid == sellerId)
+							mui.alert(info, '买家信息', function() {
+								info.innerText = info;
+							});
+
+					});
+
+					//					alert(iden+":"+laid+":");
+					setTimeout("showFollowerClickDetail('" + iden + "'," + laid + "," + sellerId + ")", 300);
+
+					//alert(iden);
+					//					setTimeout("var details = document.getElementsByClassName('show_user_info');for(var i=0;i<details.length;i++){	details[i].display = \"none\";}	alert(\"cant see\"+details.length);	",300);
+
+					//用户点击图片放大
+					//					mui('#item3').on('tap','.show_pic',function(){
+					mui.previewImage();
+					//					});
+
+					/**
+					 * 显示按钮 
+					 * 只有管理员和发布订单者可以看删除按钮，只有订单发布者可以看订单改变状态按钮
+					 * 通过审核按钮：只有未通过审核的订单可以看到未通过审核按钮
+					 * 修改状态按钮：自动修改当前状态，如果是未审核状态——什么也不能做，进行中状态——可以发货
+					 * 已发货状态——什么也不能做，等待用户全部确认收货
+					 * 个人按钮用于确认收货或者付款 只有那个用户能点击,点击后联网更新返回成功与否信息跟新本地ui
+					 */
+
+					document.getElementById("commit").disabled = false;
+					if(status == "待审核") {
+						//审核按钮
+						btnPassOrder.innerText = "是否通过审核";
+						btnPassOrder.disabled = false;
+
+						//修改订单状态按钮  未通过不可修改
+						btnChangeOrderStatus.innerText = "等待审核";
+						btnChangeOrderStatus.disabled = true;
+
+					} else {
+						//审核按钮
+						btnPassOrder.innerText = "审核通过";
+						btnPassOrder.disabled = true;
+						//修改订单状态按钮  通过可修改
+						//							btnChangeOrderStatus.disabled = true;
+						//详细判断当前的按钮的状态
+						if(status == '活动') {
+							btnChangeOrderStatus.innerText = "结束活动";
+							btnChangeOrderStatus.disabled = false;
+
+							document.getElementById("commit").style.display = "block";
+							document.getElementById("commit").innerText = "参与";
+						} else if(status == '活动已结束') {
+							btnChangeOrderStatus.innerText = "活动已结束";
+							btnChangeOrderStatus.disabled = true;
+
+							document.getElementById("commit").style.display = "block";
+							document.getElementById("commit").disabled = true;
+							document.getElementById("commit").innerText = "活动已结束";
+						} else if(status == '进行中') {
+							btnChangeOrderStatus.innerText = "等待买家付款";
+							btnChangeOrderStatus.disabled = true;
+						} else if(status == "等待卖家发货") {
+							//通过审核 可发货 发货前提醒存在用户未付款
+							btnChangeOrderStatus.innerText = "点击发货";
+							btnChangeOrderStatus.disabled = false;
+						} else if(status == "已发货") {
+							//设置所有已付款的follower为已发货  可动，但是提示商家是否全部用户已经签收
+							btnChangeOrderStatus.disabled = true;
+							btnChangeOrderStatus.innerText = "等待买家收货";
+						} else if(status == "有人收货") {
+							//设置所有已付款的follower为已发货  可动，但是提示商家是否全部用户已经签收
+							btnChangeOrderStatus.disabled = false;
+							btnChangeOrderStatus.innerText = "买家已收货，点击结束订单";
+						} else if(status == "已结束") {
+							//设置所有已付款的follower为已发货  可动，但是提示商家是否全部用户已经签收
+							btnChangeOrderStatus.disabled = true;
+							btnChangeOrderStatus.innerText = "已结束";
+						}
+					}
+
+					if(myName == sellerName) {
+						btnChangeOrderStatus.style.display = "block";
+					} else {
+						btnChangeOrderStatus.style.display = "none";
+					}
+					if(iden == "管理员") {
+						btnChangeOrderStatus.style.display = "none";
+						btnPassOrder.style.display = "block";
+					} else {
+						btnPassOrder.style.display = "none";
+					}
+					if(iden == "管理员" || myName == sellerName) {
+						document.getElementById("delete").style.display = "block";
+						document.getElementById("commit").style.display = "none";
+					} else {
+						document.getElementById("delete").style.display = "none";
+					}
+					//结束按钮显示逻辑
+
+					/**
+					 * 开始为按钮添加事件监听和逻辑
+					 */
+					$('#changeOrderStatus').unbind();
+					$('#changeOrderStatus').bind('tap', function() {
+						//根据按钮显示的内容判断需要执行什么
+						if(this.innerText == '点击发货') {
+							//								修改订单状态,修改已付款的跟单者为确认收货状态
+							mui.confirm('是否发货，确认？', '发货', btnArray, function(e) {
+								if(e.index == 1) {
+									mui.post('http://39.108.159.175/phpworkplace/mui/order/sendGoods.php', {
+										orderid: new Number(orderId)
+									}, function(data) {
+										if(data.trim() == '发货成功') {
+											plus.nativeUI.toast("发货成功");
+											//									mui.back();
+										} else {
+											plus.nativeUI.toast("发货失败");
+										}
+									}, 'text');
+									wobj.beginPullToRefresh();
+									this.innerText = '已发货'
+									this.disabled = true;
+								} else {
+//									info.innerText = '已取消'
+								}
+							});
+
+						} else if(this.innerText == '买家已收货，点击结束订单') {
+							mui.confirm('是否结束订单，确认？', '订单', btnArray, function(e) {
+								if(e.index == 1) {
+									mui.post('http://39.108.159.175/phpworkplace/mui/order/endOrder.php', {
+										orderid: new Number(orderId)
+									}, function(data) {
+										if(data.trim() == '结束成功') {
+											plus.nativeUI.toast("结束成功");
+											//									mui.back();
+										} else {
+											plus.nativeUI.toast("结束失败，有用户未收货");
+										}
+									}, 'text');
+									wobj.beginPullToRefresh();
+									this.innerText = '订单已结束';
+									this.disabled = true;
+									mui.back();
+								} else {
+//									info.innerText = '已取消'
+								}
+							});
+
+						} else if(this.innerText == '结束活动') {
+							mui.confirm('是否结束订单，确认？', '订单', btnArray, function(e) {
+								if(e.index == 1) {
+									mui.post('http://39.108.159.175/phpworkplace/mui/order/endActivity.php', {
+										orderid: new Number(orderId)
+									}, function(data) {
+										if(data.trim() == '结束成功') {
+											plus.nativeUI.toast("结束成功");
+											//									mui.back();
+										} else {
+											plus.nativeUI.toast("结束失败");
+										}
+									}, 'text');
+									wobj.beginPullToRefresh();
+									this.innerText = '活动已结束';
+									this.disabled = true;
+									mui.back();
+								} else {
+//									info.innerText = '已取消'
+								}
+							});
+
+						}
+					});
+					//										alert(document.getElementById("delete").style.display);
+
+					function sendFollowerInfo(addrId) {
+						//添加留言信息***********************************************************************
+						//							alert(addrId);
+						document.getElementById("commit").style.display = "none";
+						//						plus.nativeUI.toast("click");
+						//						return;
+						//						e.detail.gesture.preventDefault(); //修复iOS 8.x平台存在的bug，使用plus.nativeUI.prompt会造成输入法闪一下又没了
+						var btnArray = ['取消', '确定跟单'];
+						mui.prompt('请输入你对商家的留言：', '留言', '尊敬的用户', btnArray, function(e) {
+							if(e.index == 1) {
+								//跟单操作
+								var user = JSON.parse(localStorage.getItem('user'));
+								//orderId aid e.value
+								//							alert(user[0].aid+"  "+e.value);
+								mui.post('http://39.108.159.175/phpworkplace/mui/order/followOrder.php', {
+									orderid: orderId,
+									aid: new Number(user[0].aid),
+									remark: e.value,
+									addressid: new Number(addrId)
+								}, function(data) {
+									if(data.trim() == "已跟此单") {
+										//										已跟此单后业务
+										plus.nativeUI.toast("已跟此单");
+										document.getElementById("commit").style.display = "block";
+									} else {
+										plus.nativeUI.toast(data.trim());
+										wobj.beginPullToRefresh();
+										mui.back();
+									}
+								}, 'text');
+								//								setTimeout("document.getElementById(\"commit\").style.display=\"block\";",3000);
+								//								document.getElementById("commit").style.display="block";
+							} else {
+								//							plus.nativeUI.toast('你点了取消按钮');
+							}
+						});
+					}
+
+					$("#commit").unbind();
+					$("#commit").bind("tap", function() {
+						//活动结束 
+						if(status == '活动已结束') {
+							plus.nativeUI.toast("该活动已结束");
+							mui.back();
+							return;
+						}
+						if(document.getElementById("commit").innerText == "参与") {
+							//判断参与活动的人是否已满 满了无法参与  先本地判断一次 再服务器里再判断一次是否人满并且是否参加过
+							var cp = new Number(currentpeople);
+							var pl = new Number(peoplelimit);
+							if(cp >= pl) {
+								plus.nativeUI.toast("该活动名额已满");
+							}
+							//参加订单活动
+							activityCommit();
+						} else {
+							//非活动的订单
+							orderCommit();
+						}
+
+					});
+					$("#delete").unbind();
+					$("#delete").bind("tap", function() {
+						//删除订单
+						deleteOrder();
+
+					});
+					//审核订单操作
+					$('#passOrder').unbind();
+					$('#passOrder').bind('tap', function() {
+
+						//							return;
+						//网络操作
+						mui.post('http://39.108.159.175/phpworkplace/mui/order/pass.php', {
+							orderid: new Number(orderId)
+						}, function(data) {
+							if(data.trim() == '批准成功') {
+								plus.nativeUI.toast("批准成功");
+								document.getElementById("passOrder").innerText = "审核通过";
+								document.getElementById("passOrder").disabled = true;
+								//									mui.back();
+							} else {
+								plus.nativeUI.toast("失败");
+							}
+						}, 'text');
+
+					});
+
+					//开始为用户个人状态更新  需要延时绑定 因为需要等v-for 完成
+					$(".urstatus-class").unbind();
+
+					function activityCommit() {
+						mui.post('http://39.108.159.175/phpworkplace/mui/order/followActivity.php', {
+							aid: new Number(JSON.parse(localStorage.getItem('user'))[0].aid),
+							orderid: orderId
+						}, function(data) {
+							plus.nativeUI.toast(data.trim());
+						}, 'text');
+						//然后刷新本页面
+						//							mui.currentWebview.close();
+						var wobj = plus.webview.getWebviewById("Hbuilder");
+						wobj.beginPullToRefresh();
+						mui.back();
+					}
+
+					function deleteOrder() {
+						mui.post('http://39.108.159.175/phpworkplace/mui/order/delorder.php', {
+							orderid: orderId
+						}, function(data) {
+							if(data.trim() == 'succeed') {
+								plus.nativeUI.toast('订单已删除');
+								wobj.beginPullToRefresh();
+								mui.back();
+							} else {
+								plus.nativeUI.toast('订单交易中，无法删除');
+								wobj.beginPullToRefresh();
+							}
+						}, 'text');
+					}
+
+					function orderCommit() {
+						//订单结束
+						if(status == '已结束' || status == '已发货') {
+							plus.nativeUI.toast("该订单已结束");
+							mui.back();
+							return;
+						}
+						//确认跟单后选择跟单的地址
+						//获取数据显示和选择社区
+						mui.post('http://39.108.159.175/phpworkplace/mui/order/maddress/getUserAddress.php', {
+							aid: new Number(JSON.parse(localStorage.getItem('user'))[0].aid)
+						}, function(data) {
+							//								alert(new Number(JSON.parse(localStorage.getItem('user'))[0].aid));
+							if(data == null) {
+								//									alert(data==null);
+								plus.nativeUI.toast("您未编辑任何地址，请先在个人设置中添加收货地址");
+								mui.back();
+								return;
+							} else if(data.length == 0) {
+								plus.nativeUI.toast("您未编辑任何地址，请先在个人设置中添加收货地址");
+								mui.back();
+								return;
+							} else {
+								//									alert(typeof data+" "+(data.trim()=="null"));return;
+								//					选择器本地js逻辑
+								var _getParam = function(obj, param) {
+									return obj[param] || '';
+								};
+								//普通示例
+								var userPicker = new mui.PopPicker();
+								var tmpData = [];
+
+								for(var i = 0; i < data.length; i++) {
+									tmpData.push({
+										value: data[i].addressid,
+										text: data[i].address
+									});
+									//						alert(data[i].mid+data[i].cname);
+								}
+								userPicker.setData(tmpData);
+								userPicker.show(function(items) {
+									//										showUserPickerButton.innerText = items[0].text;
+									pickedAddrId = new Number(items[0].value);
+									//************************
+									sendFollowerInfo(pickedAddrId);
+									//************************
+									//返回 false 可以阻止选择框的关闭
+									//return false;
+								});
+
+								//								var showUserPickerButton = document.getElementById('showUserPicker');
+								//					var userResult = doc.getElementById('userResult');
+								//								showUserPickerButton.addEventListener('tap', function(event) {
+								//									userPicker.show(function(items) {
+								//										showUserPickerButton.innerText = items[0].text;
+								//										pickedComId = new Number(items[0].value);
+								//										//返回 false 可以阻止选择框的关闭
+								//										//return false;
+								//									});
+								//									
+								//								}, false);
+
+								//										if(iden=="管理员")alert("管理员");
+
+							}
+						}, 'json');
+					}
+
+					function bindUrStatus() {
+						//							if(laid == currentAid)
+						//							this.disabled = false;
+						//							alert($(".urstatus-class").length);
+						$(".urstatus-class").on("tap", function() {
+							var currentAid = this.name;
+							var currentStatus = this.innerText;
+							//								alert(currentAid);
+							//如果当前登陆的id为显示的id 说明这个按钮可以被点击
+							if(laid == currentAid) {
+								this.disabled = false;
+								//									alert(currentAid);
+								//如果是未付款状态
+								if(this.innerText == "未付款") {
+									//如果订单状态为已发货 则所有未付款的用户不可以付款了
+									if(status == '已发货' || status == '已结束') {
+										this.disabled = true;
+										plus.nativeUI.toast("订单已发货，付款通道已关闭，请下次即使付款");
+										return;
+									}
+									mui.confirm('是否确认付款，确认？', '付款', btnArray, function(e) {
+										if(e.index == 1) {
+											mui.openWindow({
+												url: "scan_barcode/pay.html",
+												id: "scan_barcode/pay.html",
+												extras: {
+													orderId: orderId,
+													laid: laid
+												},
+												creatNew: true
+											});
+											var paybtn = this;
+											setTimeout(function() {
+												paybtn.innerText = "已付款";
+											}, 1000);
+										} else {
+											//											info.innerText = 'MUI没有得到你的认可，继续加油'
+										}
+									})
+
+								} else if(this.innerText == "已付款") {
+									//等待商家发货，商家发货就是修改订单状态为发货，并且修改所有follower的urstatus为等待收货
+									this.disabled = true;
+								} else if(this.innerText == "等待确认收货") {
+
+									mui.confirm('是否确认收货，确认？', '订单', btnArray, function(e) {
+										if(e.index == 1) {
+											//点击确认收货 跳出提示框 是否确认
+											mui.post('http://39.108.159.175/phpworkplace/mui/order/receiveGoods.php', {
+												orderid: new Number(orderId),
+												aid: new Number(laid)
+											}, function(data) {
+												if(data.trim() == '收货成功') {
+													plus.nativeUI.toast("收货成功");
+												} else {
+													plus.nativeUI.toast("收货失败");
+												}
+											}, 'text');
+											//结束业务
+											this.disabled = true;
+											//										this.innerText='已收货';
+											this.innerText = "已确认收货";
+											mui.back();
+										} else {
+											//											info.innerText = '已取消'
+										}
+									});
+
+								} else if(this.innerText == "已确认收货") {
+
+								}
+							} else {
+								//非这个用户 无法点击
+								//									alert("disable");
+								this.disabled = true;
+							}
+
+						});
+					}
+
+					//						setTimeout("alert(document.getElementById('urstatus').name);",3000);
+					setTimeout(bindUrStatus, 1500);
+
+					//										document.getElementById("commit").addEventListener('click', function(e) {
+					//											
+					//
+					//											//						mui.back();
+					//***********************************************************
+					//									}
+
+					//					});
+
+				});
+			});
+		</script>
+	</body>
+
+</html>

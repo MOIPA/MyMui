@@ -1,0 +1,226 @@
+body {
+  background: teal;
+  font: 400 20px/28px Roboto
+}
+
+
+
+
+
+.mobile-wrap {
+  margin: auto;
+  width: auto;
+  height: 720px;
+  overflow: hidden;
+  position: relative;
+  background: url(../img/background.jpg) center no-repeat;
+  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0 rgba(0, 0, 0, .19)
+}
+
+.mobile-wrap:before {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: '';
+  position: absolute;
+  background: rgba(90, 93, 165, .8);
+  background: -webkit-linear-gradient(top, rgba(90, 93, 165, 1), rgba(0, 0, 0, .7));
+  background: linear-gradient(to bottom, rgba(90, 93, 165, 1), rgba(0, 0, 0, .7))
+}
+
+.mobile {
+  z-index: 99;
+  color: #fff;
+  height: 100%;
+  padding: 15px;
+  position: relative
+}
+
+.mobile .header {
+  clear: both;
+  overflow: hidden;
+  padding-top: 15px
+}
+
+.mobile .header>span {
+  font-size: 24px;
+  min-width: 24px
+}
+
+.mobile .header>.title {
+  font-size: 16px;
+  line-height: 24px;
+  margin-left: 15px
+}
+
+.mobile .header .pull-left {
+  float: left
+}
+
+.mobile .header .pull-right {
+  float: right
+}
+
+.mobile .header .ion-ios-arrow-back {
+  min-width: 25px
+}
+
+.mobile .header .ion-ios-navicon>i {
+  height: 1px;
+  width: 20px;
+  margin-top: 5px;
+  background: #fff;
+  position: relative;
+  display: inline-block
+}
+
+.mobile .header .ion-ios-navicon>i:after,
+.mobile .header .ion-ios-navicon>i:before {
+  content: '';
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  background: inherit
+}
+
+.mobile .header .ion-ios-navicon>i:before {
+  bottom: 12px
+}
+
+.mobile .header .ion-ios-navicon>i:after {
+  bottom: 6px
+}
+
+
+
+.pull-left {
+  float: left
+}
+
+.pull-right {
+	
+  
+}
+
+.html,
+.invisible {
+  display: none
+}
+
+.html.visible,
+.visible {
+  display: block
+}
+
+
+
+
+
+.compose
+ {
+  margin-top: 100px
+}
+
+.on-off {
+  display: none
+}
+
+.on-off+label {
+  width: 30px;
+  height: 10px;
+  position: relative;
+  border-radius: 5px;
+  background: #dedee0;
+  display: inline-block;
+  -webkit-transition: all .3s ease-in-out 0s;
+          transition: all .3s ease-in-out 0s
+}
+
+.on-off+label:after {
+  left: 0;
+  top: -2px;
+  width: 15px;
+  content: '';
+  height: 15px;
+  position: absolute;
+  border-radius: 50%;
+  background: #bebdc2;
+  -webkit-transition: all .3s ease-in-out 0s;
+          transition: all .3s ease-in-out 0s
+}
+
+.on-off:checked+label {
+  background: #fd99b3
+}
+
+.on-off:checked+label:after {
+  left: 15px;
+  background: #fb3666
+}
+
+.btn {
+  color: #eee;
+  width: 100%;
+  border: none;
+  font-size: 16px;
+  padding: 12px 24px;
+  background: #cf0e3f;
+  border-radius: 30px
+}
+
+.compose .forms .group {
+  margin-bottom: 15px
+}
+
+.compose .forms .group>label {
+  padding: 6px 0;
+  min-width: 40px;
+  display: inline-block
+}
+
+.compose .forms .group>label>span {
+  min-width: 20px;
+  display: inline-block
+}
+
+.compose .forms .group input,
+.compose .forms .group textarea {
+	font-size:1rem ;
+  color: #fff; 
+  border: none;
+  resize: none;
+  min-width: 185px;
+  background: 0 0;
+  padding: 5px 10px 1px;
+  border-bottom: 1px solid rgba(170, 170, 170, .6)
+}
+
+.compose .forms .visible {
+  width: 100%;
+  display: block!important
+}
+
+.compose .forms .action {
+  margin-top: 50px
+}
+
+.compose .forms .group:nth-child(1) {
+  -webkit-animation-duration: .1s;
+  animation-duration: .1s
+}
+
+.compose .forms .group:nth-child(2) {
+  -webkit-animation-duration: .2s;
+  animation-duration: .2s
+}
+
+.compose .forms .group:nth-child(3) {
+  -webkit-animation-duration: .3s;
+  animation-duration: .3s
+}
+
+.compose .forms .group:nth-child(4) {
+  -webkit-animation-duration: .4s;
+  animation-duration: .4s
+}
